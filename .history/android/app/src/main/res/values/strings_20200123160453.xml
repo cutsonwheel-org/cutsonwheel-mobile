@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">CutsOnWheel</string>
+    <string name="title_activity_main">CutsOnWheel</string>
+    <string name="package_name">com.cutsonwheel</string>
+    <string name="custom_url_scheme">com.cutsonwheel</string>
+</resources>

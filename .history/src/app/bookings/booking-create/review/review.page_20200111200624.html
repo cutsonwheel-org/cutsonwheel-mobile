@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/t/bookings/booking-create/schedule"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Step 4 out of 5</ion-title>
+    <ion-buttons slot="end" *ngIf="activeNext">
+      <ion-button (click)="onNext('payment')">
+          <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Location</ion-card-title>
+      <ion-card-subtitle>{{location.lat}} - {{location.lng}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      {{location.address}}
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Assistant & Services</ion-card-title>
+      <ion-card-subtitle>Experience: {{user?.experience | uppercase}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-avatar slot="start">
+            <ion-img [src]="user?.photoURL"></ion-img>
+          </ion-avatar>
+          <ion-label>
+            <h2>{{ user?.displayName }}</h2>
+            <p>{{ user?.classification | uppercase }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-list-header>
+          Selected service{{ assistant.selectedServices.length | i18nPlural: mapping }}
+        </ion-list-header>
+        <ion-item *ngFor="let service of assistant.selectedServices; let i = index">
+          <ion-label>{{service.title}}</ion-label>
+          <ion-label slot="end" class="ion-text-right">{{service.charges | currency:'PHP':'symbol-narrow'}}</ion-label>
+        </ion-item>
+        <ion-item lines="none" color="secondary">
+          <ion-label><b>Total</b></ion-label>
+          <ion-label slot="end" class="ion-text-right"><b>{{assistant.subTotal | currency:'PHP':'symbol-narrow'}}</b></ion-label>
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Schedule</ion-card-title>
+      <ion-card-subtitle>End until: {{ endUntil | date:'short' }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-icon name="calendar" slot="start"></ion-icon>
+          <ion-label>{{ endUntil | date:'mediumDate' }}</ion-label>
+          <ion-note slot="end">Date</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="clock" slot="start"></ion-icon>
+          <ion-label>{{ formatedTime }}</ion-label>
+          <ion-note slot="end">Time</ion-note>
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+  <section>
+    <ion-button expand="block" (click)="onNext('payment')">Continue</ion-button>
+  </section>
+</ion-content>

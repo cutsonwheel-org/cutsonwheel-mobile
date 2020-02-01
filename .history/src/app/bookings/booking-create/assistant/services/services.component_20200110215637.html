@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-title>{{user?.displayName}}</ion-title>
+      <ion-buttons slot="primary">
+          <ion-button (click)="onCancel()">
+              <ion-icon name="close"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+  <ion-text color="dark">
+    <h5>Select Services</h5>
+  </ion-text>
+  <ion-list>
+    <ion-item lines="full" *ngFor="let offer of offers$ | async">
+        <ion-thumbnail slot="start">
+            <ion-img [src]="offer.imageUrl"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ offer.title }}</h2>
+          <ion-chip outline >
+            <ion-icon name="clock"></ion-icon>
+            <ion-label>{{ offer.duration }}</ion-label>
+          </ion-chip>
+          <ion-chip outline >
+            <ion-icon name="cash"></ion-icon>
+            <ion-label>{{ offer.charges | currency }}</ion-label>
+          </ion-chip>
+        </ion-label>
+        <ion-checkbox [value]="offer" slot="end" checked="containsObject(offer.id)" (ionChange)="selectService($event)"></ion-checkbox>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label slot="start">Total: </ion-label>
+      <ion-label slot="end">{{total}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <section>
+    <ion-button color="success" expand="block" (click)="onSelectService()">Done</ion-button>
+  </section>
+
+  <ion-card *ngIf="!(offers$ | async)?.length">
+    <ion-card-content>
+      <ion-icon slot="start" name="information"></ion-icon>
+      No offers from {{user?.displayName}}!
+    </ion-card-content>
+  </ion-card>
+</ion-content>

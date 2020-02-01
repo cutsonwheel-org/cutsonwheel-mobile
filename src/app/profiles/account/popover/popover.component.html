@@ -1,0 +1,20 @@
+<ion-list>
+    <ion-list-header>Notifications</ion-list-header>
+    <ion-item>
+        <ion-label>Push notification</ion-label>
+        <ion-toggle name="pushNotification" value="pushNotification" [(ngModel)]="pushNotification" (ionChange)="onNotificationSelect($event)"></ion-toggle>
+    </ion-item>
+    <ion-item>
+        <ion-label>Invitations</ion-label>
+        <ion-toggle name="emailInvitations" value="emailInvitations" [(ngModel)]="emailInvitations" (ionChange)="onNotificationSelect($event)"></ion-toggle>
+    </ion-item>
+    <ion-item>
+        <ion-label>Updates</ion-label>
+        <ion-toggle name="emailUpdates" value="emailUpdates" [(ngModel)]="emailUpdates" (ionChange)="onNotificationSelect($event)"></ion-toggle>
+    </ion-item>
+    <ion-item lines="none">
+        <ion-label>Events</ion-label>
+        <ion-toggle name="emailEvents" value="emailEvents" [(ngModel)]="emailEvents" (ionChange)="onNotificationSelect($event)"></ion-toggle>
+    </ion-item>
+    <!-- <ion-list-header>Language</ion-list-header> -->
+</ion-list>

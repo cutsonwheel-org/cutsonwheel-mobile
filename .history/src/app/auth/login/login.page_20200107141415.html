@@ -1,0 +1,45 @@
+<ion-header translucent>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <h3 class="ion-text-center">Welcome to cutsonwheel! <br/>
+      Offer or Book Services to get started.</h3>
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+
+      <ion-item>
+          <ion-label position="floating">E-mail</ion-label>
+          <ion-input type="email" ngModel name="email" required email #email="ngModel"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!email.valid && email.touched" lines="none">
+          <p>Should be a valid email!</p>
+      </ion-item>
+      <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" ngModel name="password" required minlength="8" #password="ngModel"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!password.valid && password.touched" lines="none">
+          <p>Should at least 8 characters long!</p>
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button type="submit" color="primary" expand="block" [disabled]="!f.valid">Login</ion-button>
+    </div>
+
+  </form>
+  <section class="ion-padding">
+    <p class="ion-text-center">Or</p>
+    <ion-button type="button" color="secondary" expand="block" (click)="onProviderLogin('google')">Login with google</ion-button>
+  </section>
+  <!-- <ion-button type="button" color="secondary" expand="block" (click)="onProviderLogin('facebook')">Login with facebook</ion-button> -->
+</ion-content>
+<ion-footer class="ion-text-center">
+  <p role="button" routerLink="/auth/register">No account yet? Signup</p>
+  </ion-footer>

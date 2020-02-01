@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/news"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{news?.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card id="skeleton" *ngIf="isLoading">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-skeleton-text animated style="width: 80px"></ion-skeleton-text>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+    </ion-card-content>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 30px" slot="start"></ion-skeleton-text>
+      <ion-label>
+        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="!isLoading">
+    <img [src]="news?.featuredImage" />
+    <ion-card-header>
+      <ion-card-title>{{news?.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{news?.description}}
+    </ion-card-content>
+    <ion-item (click)="onViewSource(news?.url)">
+      <ion-icon name="link" slot="start"></ion-icon>
+      <ion-label>View Source</ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>

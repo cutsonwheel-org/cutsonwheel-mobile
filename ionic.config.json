@@ -1,0 +1,8 @@
+{
+  "name": "booking",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

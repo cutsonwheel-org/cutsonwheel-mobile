@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/t/bookings/booking-create/location"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Step 2 out of 5</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Filter Assistants" animated (ionClear)="onClear($event)" (ionChange)="onFilterUpdate($event)"></ion-searchbar>
+  </ion-toolbar>
+
+  <ion-item *ngFor="let user of assistants$ | async" (click)="onPickedAssistant(user?.id)">
+    <ion-label>
+      {{user?.displayName}}
+    </ion-label>
+  </ion-item>
+  <ion-card *ngIf="!(assistants$ | async)?.length">
+    <ion-card-content>
+      <ion-icon slot="start" name="information"></ion-icon>
+      No assistant on record for now!
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Directions</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onCancel()">
+          <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>{{center}}</ion-label>
+  </ion-item>
+  <div class="map" #map></div>
+</ion-content>

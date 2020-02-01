@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Wallet</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen class="ion-padding">
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-card-subtitle>Wallet Balance</ion-card-subtitle>
+      <ion-card-title>{{balance | currency:'PHP':'symbol-narrow'}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button expand="block" fill="outline" shape="round">Withdraw</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button expand="block" fill="outline" shape="round" color="secondary">Deposit</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-list #infinite>
+    <ion-item *ngFor="let wallet of wallets">
+      <ion-label>Paid from: {{wallet.transactions.itemList.shippingAddress.recipientName}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list></ion-list>
+  <!-- <ion-list>
+    <ion-item *ngFor="let wallet of wallets">
+      <ion-label>{{wallet.transactions.itemList.shippingAddress.recipientName}}</ion-label>
+    </ion-item>
+  </ion-list> -->
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <!-- <ion-item>
+    <ion-label>Balance: {{balance | currency:'PHP':'symbol-narrow'}}</ion-label>
+  </ion-item> -->
+
+  <!-- <ion-virtual-scroll [items]="wallets" approxItemHeight="70px">
+    <ion-item [routerLink]="['/t/', 'wallet', 'wallet-detail', wallet.id]" detail *virtualItem="let wallet">
+      <app-wallet-item [wallet]="wallet" (totalItemWallet)="getEachTotal($event)"></app-wallet-item>
+    </ion-item>
+  </ion-virtual-scroll>
+
+  <ion-card *ngIf="!wallets">
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="information-circle"></ion-icon>
+        <ion-label>No balance avaiable for now!</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card> -->
+</ion-content>

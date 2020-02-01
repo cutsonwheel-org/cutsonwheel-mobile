@@ -1,0 +1,9 @@
+<ion-item [routerLink]="['/', 'places', 'offers', 'offer-bookings', place.id]">
+  <ion-thumbnail slot="start">
+    <ion-img [src]="place.imageUrl"></ion-img>
+  </ion-thumbnail>
+  <ion-label>
+    <h1>{{place.title}}</h1>
+    <p>{{place.description}}</p>
+  </ion-label>
+</ion-item>

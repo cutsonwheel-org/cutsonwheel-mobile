@@ -1,0 +1,29 @@
+<ion-item>
+    <ion-thumbnail slot="start">
+        <ion-img [src]="offer.imageUrl"></ion-img>
+    </ion-thumbnail>
+    <ion-label>
+        <h2>{{ offer.title }}</h2>
+        <!-- <ion-chip>
+          <ion-icon name="calendar"></ion-icon>
+          <ion-label>
+            <ng-container *ngIf="offer.availability === 'alldays'; else options">
+              All Days
+            </ng-container>
+            <ng-template #options>
+              {{ offer.availability != 'weekdays' ? 'Week end': 'Week days'}}
+            </ng-template>
+          </ion-label>
+        </ion-chip> -->
+        <ion-chip>
+          <ion-icon name="clock"></ion-icon>
+          <ion-label>{{ offer.duration }}</ion-label>
+        </ion-chip>
+        <ion-chip>
+          <ion-icon name="cash"></ion-icon>
+          <ion-label>{{ offer.cost | currency }}</ion-label>
+        </ion-chip>
+    </ion-label>
+    <ion-note slot="end">{{offer.status}}</ion-note>
+</ion-item>
+

@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/t/bookings"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{detail?.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Location
+    </ion-list-header>
+    <ion-item>
+      <ion-label>{{detail?.location.address}}</ion-label>
+      <ion-icon slot="end" name="eye" (click)="onViewLocation(detail?.location.lat, detail?.location.lng)"></ion-icon>
+    </ion-item>
+
+    <ion-list-header>
+      {{lbl}}
+    </ion-list-header>
+    <ion-item>
+      <ion-avatar slot="start">
+        <img [src]="avatar"/>
+      </ion-avatar>
+      <ion-label>
+        {{ fullname }}
+      </ion-label>
+    </ion-item>
+    <ion-list-header>
+      Service
+    </ion-list-header>
+    <ion-item>
+      <ion-label>{{detail?.type}}</ion-label>
+      <ion-chip outline slot="end" color="primary">
+        <ion-icon name="cash"></ion-icon>
+        <ion-label>{{ detail?.cost | currency }}</ion-label>
+      </ion-chip>
+    </ion-item>
+
+    <ion-list-header>
+      Date/Time
+    </ion-list-header>
+    <ion-item>
+      <ion-chip>
+        <ion-icon name="calendar"></ion-icon>
+        <ion-label>{{detail?.schedule.datePicked | date }}</ion-label>
+      </ion-chip>
+      <ion-chip>
+        <ion-icon name="clock"></ion-icon>
+        <ion-label>{{detail?.schedule.timePicked }}</ion-label>
+      </ion-chip>
+    </ion-item>
+    <ion-item *ngIf="detail?.status != 'pending'">
+      <ion-chip outline color="secondary">
+        <ion-icon name="checkmark"></ion-icon>
+        <ion-label>{{detail?.status}}</ion-label>
+      </ion-chip>
+    </ion-item>
+  </ion-list>
+  <section *ngIf="detail?.status === 'pending'">
+    <ion-button expand="block" (click)="onConfirmed(detail?.id)">Confirm</ion-button>
+    <ion-button clear expand="block" color="danger" fill="outline" (click)="onConfirmed(detail?.id)">Cancel</ion-button>
+  </section>
+</ion-content>

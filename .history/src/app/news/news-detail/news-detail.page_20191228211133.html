@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/news"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{news?.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <img [src]="news?.featuredImage" />
+    <ion-card-header>
+      <ion-card-title>{{news?.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{news?.description}}
+    </ion-card-content>
+    <ion-item *ngIf="news?.url" (click)="onViewSource(news?.url)">
+      <ion-icon name="link" slot="start"></ion-icon>
+      <ion-label>View Source</ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Profile</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-text>
+    <h5 class="ion-padding">Please complete all fields.</h5>
+  </ion-text>
+    <form >
+        <ion-list lines="full" class="ion-no-margin ion-no-padding">
+            <ion-item>
+              <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="text" name="firstname" [(ngModel)]="firstname" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Middle Name (optional)</ion-label>
+              <ion-input type="text" name="middlename" [(ngModel)]="middlename"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="text" name="lastname" [(ngModel)]="lastname" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Current address <ion-text color="danger">*</ion-text></ion-label>
+              <ion-textarea name="address" [(ngModel)]="address" required></ion-textarea>
+            </ion-item>
+        </ion-list>
+        <ion-img [src]="staticMapImageUrl"></ion-img>
+        <div class="ion-padding">
+          <ion-button expand="block" (click)="onNext()" [disabled]="!this.firstname || !this.lastname || !this.address" class="ion-no-margin">Update</ion-button>
+        </div>
+    </form >
+</ion-content>

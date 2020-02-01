@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Your Bookings</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-segment (ionChange)="segmentChanged($event, users)">
+        <ion-segment-button value="pending" checked>
+            <ion-label>Pending</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="canceled">
+          <ion-label>Canceled</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="more">
+          More
+        </ion-segment-button>
+        <!-- <ion-segment-button value="done">
+          <ion-label>Done</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="accepted">
+            <ion-label>Accepted</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="paid">
+            <ion-label>Paid</ion-label>
+        </ion-segment-button> -->
+
+    </ion-segment>
+    <ion-list>
+        <ion-item-sliding *ngFor="let booking of loadedBookings" #slidingBooking>
+            <app-booking-item [booking]="booking" (wasCanceled)="onCancel($event)"></app-booking-item>
+        </ion-item-sliding>
+    </ion-list>
+    <ion-card *ngIf="!length || length === 0">
+        <ion-card-content>
+            <ion-item lines="none">
+                <ion-icon slot="start" name="information-circle"></ion-icon>
+                <ion-label>No {{selectedSegment}} booking record!</ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

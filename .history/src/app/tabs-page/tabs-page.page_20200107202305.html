@@ -1,0 +1,31 @@
+
+<ion-content *ngIf="!isLoading">
+  <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="news">
+          <ion-icon name="information"></ion-icon>
+          <ion-label>News</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="services/discover">
+            <ion-icon name="search"></ion-icon>
+            <ion-label>Discover</ion-label>
+        </ion-tab-button>
+        <ng-container *ngIf="userInfo?.role != 'assistant'; else client">
+          <ion-tab-button tab="bookings/new-booking">
+            <ion-icon name="calendar"></ion-icon>
+            <ion-label>Book Now</ion-label>
+          </ion-tab-button>
+        </ng-container>
+        <ng-template #client>
+          <ion-tab-button tab="services/offers">
+            <ion-icon name="card"></ion-icon>
+            <ion-label>Offers</ion-label>
+          </ion-tab-button>
+        </ng-template>
+        <ion-tab-button tab="profiles">
+          <ion-icon name="contact"></ion-icon>
+          <ion-label>Profile</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

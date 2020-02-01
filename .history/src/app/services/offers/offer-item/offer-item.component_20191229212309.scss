@@ -1,0 +1,20 @@
+
+.offer-details {
+  display: flex;
+  align-items: center;
+
+  .space-left {
+    margin: 0 5px;
+  }
+}
+
+ion-note.note {
+  position: absolute;
+  right: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+}
+.offer-details div ion-text {
+  font-size: 14px;
+}

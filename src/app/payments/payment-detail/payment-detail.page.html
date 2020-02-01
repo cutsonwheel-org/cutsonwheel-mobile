@@ -1,0 +1,62 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/t/payments"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Transaction Details</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-card class="ion-no-padding ion-no-margin no-box-shadow">
+        <ion-card-header>
+            <ion-card-subtitle>Invoice #: {{paymentData?.transactions.invoiceNumber}}</ion-card-subtitle>
+            <ion-card-title>{{paymentData?.transactions.amount.total | currency:paymentData?.transactions.amount.currency:'symbol-narrow'}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            {{ paymentData?.transactions.description }}
+        </ion-card-content>
+        <ion-item>
+            <ion-icon name="chatboxes" slot="start"></ion-icon>
+            <ion-label>{{ paymentData?.note }}</ion-label>
+            <ion-note slot="end">Note</ion-note>
+        </ion-item>
+
+        <ion-list>
+            <ion-list-header>
+                <ion-label>Paid by</ion-label>
+            </ion-list-header>
+            <ion-item>
+                <ion-avatar slot="start">
+                    <img [src]="paymentData?.client.photoURL">
+                </ion-avatar>
+                <ion-label>
+                    <h3>{{ (paymentData?.client.displayName) ? paymentData?.client.displayName : paymentData?.client.firstname + ' ' + paymentData?.client.lastname }}</h3>
+                    <p>{{ paymentData?.client.email }}</p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-icon name="pin" slot="start"></ion-icon>
+                <ion-label>{{paymentData?.transactions.itemList.shippingAddress.address}}</ion-label>
+            </ion-item>
+            <ion-list-header>
+                <ion-label>Payment Sent to</ion-label>
+            </ion-list-header>
+            <ion-item>
+                <ion-avatar slot="start">
+                    <img [src]="paymentData?.assistant.photoURL">
+                </ion-avatar>
+                <ion-label>
+                    <h3>{{ paymentData?.assistant.displayName }}</h3>
+                    <p>{{ paymentData?.assistant.email }}</p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+
+        <!-- <ion-item>
+            <ion-button fill="outline" slot="end">Refund</ion-button>
+        </ion-item> -->
+    </ion-card>
+
+</ion-content>

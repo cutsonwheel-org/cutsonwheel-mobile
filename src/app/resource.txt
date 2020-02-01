@@ -1,0 +1,49 @@
+trackByFn(index, item) {
+    return index; // or item.id
+  }
+
+/**
+todo
+
+service detail booknow
+  set assistant and service
+-----------
+share
+npm install @ionic-enterprise/social-sharing
+
+#########
+import { SocialSharing } from '@ionic-enterprise/social-sharing/ngx';
+
+constructor(private socialSharing: SocialSharing) { }
+
+...
+
+// Check if sharing via email is supported
+this.socialSharing.canShareViaEmail().then(() => {
+  // Sharing via email is possible
+}).catch(() => {
+  // Sharing via email is not possible
+});
+
+// Share via email
+this.socialSharing.shareViaEmail('Body', 'Subject', ['recipient@example.org']).then(() => {
+  // Success!
+}).catch(() => {
+  // Error!
+});
+
+shareViaFacebook(message: string, image?: string, url?: string)
+shareViaSMS(message: string, phoneNumber: string)
+##########
+------------
+App Version
+Calendar
+Camera
+Clipboard
+Contacts
+Device
+Email Composer
+Geolocation
+Globalization
+InAppBrowser
+Media Capture

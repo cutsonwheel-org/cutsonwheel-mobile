@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/booking"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Booking</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-segment (ionChange)="segmentChanged($event)" scrollable="true">
+    <ion-segment-button value="location"
+    [checked]="(selectedSegment == 'location') ? true : false"
+    [disabled]="(selectedSegment != 'location') ? true : false">
+      <ion-label>Location</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="assistant"
+    [checked]="(selectedSegment == 'assistant') ? true : false"
+    [disabled]="(selectedSegment != 'assistant') ? true : false">
+      <ion-label>Assistant</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="schedule"
+    [checked]="(selectedSegment == 'schedule') ? true : false"
+    [disabled]="(selectedSegment != 'schedule') ? true : false">
+      <ion-label>Date/Time</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="review"
+    [checked]="(selectedSegment == 'review') ? true : false"
+    [disabled]="(selectedSegment != 'review') ? true : false">
+      <ion-label>Review</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="payment"
+    [checked]="(selectedSegment == 'payment') ? true : false"
+    [disabled]="(selectedSegment != 'payment') ? true : false">
+      <ion-label>Payment</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ng-container *ngIf="selectedSegment == 'location'">
+
+    <ng-container *ngIf="!locationSelected?.address">
+      <ion-button expand="block" fill="outline" (click)="onLocateUser()">Use my current location</ion-button>
+      <ion-button expand="block" (click)="onOpenMap()">Pick a location</ion-button>
+    </ng-container>
+
+    <ng-container *ngIf="locationSelected?.address">
+      <ion-text color="dark">
+        <h5>Address</h5>
+      </ion-text>
+      <ion-card>
+        <img [src]="locationSelected?.staticMapImageUrl"/>
+        <ion-card-header>
+          <ion-card-title>{{locationSelected?.lat}} - {{locationSelected?.lng}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{locationSelected?.address}}
+        </ion-card-content>
+        <ion-item>
+          <ion-icon name="pin" slot="start"></ion-icon>
+          <ion-button fill="outline" slot="end" (click)="onChangeLocation()">Change</ion-button>
+        </ion-item>
+      </ion-card>
+      <ion-button expand="block" (click)="onNext('assistant')">Next</ion-button>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="selectedSegment == 'assistant'">
+    Assisstant
+    <ion-button expand="block" (click)="onPrev('location')">Back</ion-button>
+    <ion-button expand="block" (click)="onNext('schedule')">Next</ion-button>
+  </ng-container>
+
+  <ng-container *ngIf="selectedSegment == 'schedule'">
+    Schedule
+    <ion-button expand="block" (click)="onPrev('assistant')">Back</ion-button>
+    <ion-button expand="block" (click)="onNext('review')">Next</ion-button>
+  </ng-container>
+
+  <ng-container *ngIf="selectedSegment == 'review'">
+    Review
+    <ion-button expand="block" (click)="onPrev('schedule')">Back</ion-button>
+    <ion-button expand="block" (click)="onNext('payment')">Next</ion-button>
+  </ng-container>
+
+  <ng-container *ngIf="selectedSegment == 'payment'">
+    Payment
+    <ion-button expand="block" (click)="onPrev('review')">Back</ion-button>
+    <ion-button expand="block" (click)="onPayment()">Pay</ion-button>
+  </ng-container>
+</ion-content>

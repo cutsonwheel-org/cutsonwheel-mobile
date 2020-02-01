@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Pick a date/time</ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="onCancel()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <form (ngSubmit)="onBookOffer()" #f="ngForm">
+      <ion-list>
+        <ion-item>
+          <ion-label>Date</ion-label>
+          <ion-datetime display-format="MMM DD, YYYY" picker-format="MMM DD YYYY" value="1990-02-19" placeholder="Select Date"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Time</ion-label>
+          <ion-datetime display-format="hh:mm A" picker-format="hh:mm A" value="1990-02-19T07:43Z"></ion-datetime>
+        </ion-item>
+      </ion-list>
+            <!-- <ion-row>
+                <ion-col size-sm="3" offset-sm="3">
+                    <ion-item>
+                        <ion-label position="floating">From</ion-label>
+                        <ion-datetime display-format="MMM DD YYYY" picker-format="YY MMM DD" [min]="selectedOffer.availableFrom.toISOString()" [max]="selectedOffer.availableTo.toISOString()" [ngModel]="startDate" name="date-from" required #startDateCtrl="ngModel"></ion-datetime>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size-sm="3">
+                    <ion-item>
+                        <ion-label position="floating">To</ion-label>
+                        <ion-datetime display-format="MMM DD YYYY" picker-format="YY MMM DD" [min]="startDateCtrl.value" [max]="selectedOffer.availableTo.toISOString()" [ngModel]="endDate" name="date-to" required></ion-datetime>
+                    </ion-item>
+                </ion-col>
+            </ion-row> -->
+            <!-- <ion-row>
+                <ion-col size-sm="6" offset-sm="3">
+                    <ion-button type="submit" color="primary" expand="block" [disabled]="!f.valid || !datesValid()">
+                        Set Date
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid> -->
+        <ion-button type="submit" color="primary" expand="block" [disabled]="!f.valid || !datesValid()">
+          Set Date
+      </ion-button>
+    </form>
+</ion-content>

@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>
+            Cuts On Wheel
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="onSkip()">
+                Skip
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen scroll-y="false" class="ion-padding">
+    <ion-slides>
+        <ion-slide>
+            <img src="./../../assets/images/slide-1.png" />
+            <h2>Welcome to <b>custonwheel</b></h2>
+            <p><b>cutsonwheel</b> is the latest trend of services that incorporate the latest technologies such as web and mobile developments. </p>
+        </ion-slide>
+
+        <ion-slide>
+            <img src="./../../assets/images/slide-2.png" />
+            <h2>Plan your Schedule</h2>
+            <p>Our professionals are openminded and flexible to there time allocated to serve you on the day you want. </p>
+        </ion-slide>
+
+        <ion-slide>
+            <img src="./../../assets/images/slide-3.png" />
+            <h2>Ratings</h2>
+            <p>Provide feedback on your professional who serve you or even share your thought about cutsonwheel services and app.</p>
+        </ion-slide>
+
+        <ion-slide>
+            <img src="./../../assets/images/slide-4.png" />
+            <h2>Ready to Start?</h2>
+            <ion-button routerLink="/auth" fill="clear">Login
+                <ion-icon slot="end" name="arrow-forward"></ion-icon>
+            </ion-button>
+        </ion-slide>
+    </ion-slides>
+</ion-content>
+<ion-footer class="ion-text-center">
+    <p>Company Reg No. PL201906775</p>
+</ion-footer>

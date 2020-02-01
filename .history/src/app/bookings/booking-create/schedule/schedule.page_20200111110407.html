@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/t/bookings/booking-create/assistant"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Step 3 out of 5</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list id="skeleton" *ngIf="isLoading">
+    <ion-item>
+        <ion-thumbnail slot="start">
+            <ion-skeleton-text></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+            <h2>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </h2>
+            <h3>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            </h3>
+            <p>
+                <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+            </p>
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-thumbnail slot="start">
+            <ion-skeleton-text></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+            <h2>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </h2>
+            <h3>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            </h3>
+            <p>
+                <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+            </p>
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-thumbnail slot="start">
+            <ion-skeleton-text></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+            <h2>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </h2>
+            <h3>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            </h3>
+            <p>
+                <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+            </p>
+        </ion-label>
+    </ion-item>
+</ion-list>
+<form #f="ngForm" (ngSubmit)="onSetSchedule(f)">
+  <ion-list>
+      <ion-item>
+          <ion-label>Date</ion-label>
+          <ion-datetime display-format="MMM DD, YYYY" picker-format="MMM DD YYYY" placeholder="Select Date" [min]="date" ngModel name="datePicked" required datePicked #datePicked="ngModel"></ion-datetime>
+      </ion-item>
+      <ion-item>
+          <ion-label>Time</ion-label>
+          <ion-datetime display-format="hh:mm A" picker-format="hh:mm A" placeholder="Select Time" name="timePicked" ngModel required timePicked #timePicked="ngModel"></ion-datetime>
+      </ion-item>
+  </ion-list>
+
+  <ion-button type="submit" color="primary" expand="block" [disabled]="!f.valid">
+      Set Date
+  </ion-button>
+</form>
+  <ion-list *ngIf="!isLoading">
+    <ion-item lines="full" *ngFor="let booking of booking$ | async">
+      <!-- <ion-avatar slot="start">
+          <ion-img [src]="booking?.photoURL"></ion-img>
+      </ion-avatar> -->
+      <ion-label>
+        {{booking.id}}
+          <!-- <h2>{{ booking.displayName }}</h2>
+          <p>{{ booking.classification | uppercase }}</p> -->
+        </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-card *ngIf="!(booking$ | async)?.length">
+    <ion-card-content>
+      <ion-icon slot="start" name="information"></ion-icon>
+      No booking at this moment!
+    </ion-card-content>
+  </ion-card>
+</ion-content>

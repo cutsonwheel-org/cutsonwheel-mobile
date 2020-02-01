@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>News</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+  <ion-list id="skeleton" *ngIf="isLoading">
+    <ion-item *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">
+        <ion-label>
+            <h2>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </h2>
+            <p>
+                <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+            </p>
+        </ion-label>
+        <ion-note slot="end">
+          <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+        </ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="latestNews.length">
+    <ion-item *ngFor="let news of latestNews">
+      <ion-label>
+        <ion-thumbnail slot="start">
+          <ion-img [src]="news.featuredImage"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+            <h2>{{ news.title }}</h2>
+            <h3>{{news.published.seconds * 1000 | date }}</h3>
+            <p>{{ news.description }}</p>
+        </ion-label>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)" *ngIf="latestNews.length">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-card *ngIf="latestNews.length === 0">
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="information-circle"></ion-icon>
+        <ion-label>No news avaiable for now!</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

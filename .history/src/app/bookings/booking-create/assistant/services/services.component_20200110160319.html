@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>Select Services</ion-title>
+      <ion-buttons slot="primary">
+          <ion-button (click)="onCancel()">
+              <ion-icon name="close"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item lines="full" *ngFor="let offer of offers$ | async" (click)="onPickedService(offer?.id)" detail>
+      <ion-label>
+        {{offer?.title}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-card *ngIf="!(offers$ | async)?.length">
+    <ion-card-content>
+      <ion-icon slot="start" name="information"></ion-icon>
+      No offers for now!
+    </ion-card-content>
+  </ion-card>
+</ion-content>

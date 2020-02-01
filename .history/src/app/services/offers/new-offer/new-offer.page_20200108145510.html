@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/services/offers"></ion-back-button>
+      </ion-buttons>
+      <ion-title>New Offer</ion-title>
+      <ion-buttons slot="primary">
+          <ion-button (click)="onCreateOffer()" [disabled]="!form.valid || !form.get('image').value">
+              <ion-icon name="save" slot="icon-only"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <form [formGroup]="form">
+    <ion-list class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="floating">Title</ion-label>
+        <ion-input type="text" autocomplete autocorrect formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item lines="none" *ngIf="!form.get('title').valid && form.get('title').touched">
+        <ion-text  color="danger">
+          <p>Title must be between 1 and 250 characters.</p>
+        </ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Short Description</ion-label>
+        <ion-textarea rows="3" formControlName="description"></ion-textarea>
+      </ion-item>
+      <ion-item lines="none" *ngIf="!form.get('description').valid && form.get('description').touched">
+        <ion-text  color="danger">
+          <p>Description must be between 1 and 1000 characters.</p>
+        </ion-text>
+      </ion-item>
+
+      <ion-radio-group formControlName="availability" (ionSelect)="onAvailabilitySelected($event)">
+        <ion-list-header>
+          <ion-label>Availability</ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-checkbox></ion-checkbox>
+          <ion-checkbox></ion-checkbox>
+          <ion-checkbox></ion-checkbox>
+        </ion-item>
+        <ion-item>
+          <ion-label>Week days only</ion-label>
+          <ion-radio slot="start" value="weekdays"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Week ends only</ion-label>
+          <ion-radio slot="start" value="weekends"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>All days</ion-label>
+          <ion-radio slot="start" value="alldays"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+      <ion-item lines="none" *ngIf="!form.get('availability').valid && form.get('availability').touched">
+        <ion-text  color="danger">
+          <p>Availability is required.</p>
+        </ion-text>
+      </ion-item>
+      <ion-list-header>Services detail</ion-list-header>
+      <ion-item>
+        <ion-label position="floating">Type</ion-label>
+        <ion-input formControlName="type"></ion-input>
+      </ion-item>
+      <ion-item lines="none" *ngIf="!form.get('type').valid && form.get('type').touched">
+        <ion-text  color="danger">
+          <p>Type is required.</p>
+        </ion-text>
+      </ion-item>
+      <ion-list-header>Duration</ion-list-header>
+      <ion-item>
+        <ion-range min="25" max="60" step="5" snaps="true" (ionChange)="onDurationSelected($event)"></ion-range>
+        <ion-note slot="end">{{duration}}</ion-note>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Cost</ion-label>
+        <ion-input type="number" formControlName="cost"></ion-input>
+        <ion-note slot="end">.00</ion-note>
+      </ion-item>
+      <ion-item lines="none" *ngIf="!form.get('cost').valid && form.get('cost').touched">
+        <ion-text  color="danger">
+          <p>Cost is required.</p>
+        </ion-text>
+      </ion-item>
+      <ion-list-header>Sample of Offer</ion-list-header>
+      <app-image-picker [showPreview]="form.get('image').value" (imagePick)="onImagePicked($event)"></app-image-picker>
+    </ion-list>
+  </form>
+</ion-content>

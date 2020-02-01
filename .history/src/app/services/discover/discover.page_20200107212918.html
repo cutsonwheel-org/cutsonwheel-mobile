@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Discover Services</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Searchbar in a Toolbar -->
+    <ion-toolbar>
+      <ion-searchbar placeholder="Filter services" animated (ionClear)="onClear($event)" (ionChange)="onFilterUpdate($event)"></ion-searchbar>
+    </ion-toolbar>
+
+    <ion-list id="skeleton" *ngIf="isLoading">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h2>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-virtual-scroll [items]="(offers$ | async)" approxItemHeight="70px">
+      <ion-item [routerLink]="['/t/', 'services', 'discover', 'offer-detail', offer.id]" detail *virtualItem="let offer">
+          <ion-thumbnail slot="start">
+              <ion-img [src]="offer.imageUrl"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+              <h2>{{ offer.title }}</h2>
+              <p>{{ offer.description }}</p>
+          </ion-label>
+      </ion-item>
+    </ion-virtual-scroll>
+
+    <ion-card *ngIf="!(offers$ | async)?.length || !isLoading">
+      <ion-card-content>
+        <ion-icon slot="start" name="information"></ion-icon>
+        There are no bookable services right now, please come back later!
+      </ion-card-content>
+    </ion-card>
+</ion-content>
+

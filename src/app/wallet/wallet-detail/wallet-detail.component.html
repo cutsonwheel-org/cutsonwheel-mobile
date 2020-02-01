@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Inv #: {{payment?.transactions.invoiceNumber}}</ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="onCancel()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+    <ion-card>
+        <ion-card-header>
+            <ion-card-subtitle>{{ payment?.paymentCreated | timestamp}}</ion-card-subtitle>
+            <ion-card-title>Paid by: Admin</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            <p>{{ payment?.note}}</p>
+        </ion-card-content>
+        <ion-item *ngFor="let item of payment?.transactions.itemList.items">
+            <!-- <ion-avatar slot="start">
+                <img [src]="item">
+            </ion-avatar> -->
+            <ion-label>{{item.name}}</ion-label>
+            <!-- <ion-note>{{item.price | currency:item.currency:'symbol-narrow'}}</ion-note> -->
+        </ion-item>
+        <ion-item>
+            <ion-icon name="pin" slot="start"></ion-icon>
+            <ion-label>ion-item in a card, icon left, button right</ion-label>
+            <ion-button fill="outline" slot="end">View</ion-button>
+        </ion-item>
+    </ion-card>
+
+</ion-content>

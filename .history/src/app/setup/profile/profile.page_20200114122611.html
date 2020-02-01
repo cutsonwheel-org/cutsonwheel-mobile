@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Profile</ion-title>
+        <ion-buttons slot="primary">
+          <ion-button (click)="onNext()" [disabled]="!this.firstname || !this.lastname || !this.address">
+            <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-text>
+    <h5 class="ion-padding">Please complete all fields.</h5>
+  </ion-text>
+    <form >
+      <ion-grid>
+        <ion-row>
+          <ion-col size="5">
+            ion-col
+          </ion-col>
+          <ion-col size="5">
+            ion-col
+          </ion-col>
+          <ion-col size="2">
+            ion-col
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+        <ion-list lines="full" class="ion-no-margin ion-no-padding">
+            <ion-item>
+              <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="text" autocomplete autocorrect name="firstname" [(ngModel)]="firstname" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Middle Name (optional)</ion-label>
+              <ion-input type="text" autocomplete autocorrect name="middlename" [(ngModel)]="middlename"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="text" autocomplete autocorrect name="lastname" [(ngModel)]="lastname" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Display Name <ion-text color="danger">*</ion-text></ion-label>
+              <ion-input type="text" name="displayName" [(ngModel)]="displayName" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Current address <ion-text color="danger">*</ion-text></ion-label>
+              <ion-textarea name="address" [(ngModel)]="address" required></ion-textarea>
+            </ion-item>
+        </ion-list>
+        <ion-img [src]="staticMapImageUrl"></ion-img>
+
+    </form >
+</ion-content>

@@ -1,0 +1,11 @@
+{
+  "appId": "com.cutsonwheel",
+  "appName": "cutsonwheel",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {},
+  "server": {
+    "url": "http://localhost:8100"
+  }
+}

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/booking"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Booking</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="account" checked>
+      <ion-label>Location</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="assistant">
+      <ion-label>Assistant</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="schedule">
+      <ion-label>Date/Time</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-content>

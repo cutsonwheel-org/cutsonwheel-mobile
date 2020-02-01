@@ -1,0 +1,56 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Payment History</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <!-- show skeleton loading -->
+    <ion-list id="skeleton" *ngIf="isLoading">
+      <ion-item>
+        <ion-label>
+          <h2>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h2>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-virtual-scroll [items]="(payments$ | async)" approxItemHeight="70px">
+      <ion-item [routerLink]="['/t/', 'payments', 'payment-detail', payment.id]" detail *virtualItem="let payment">
+        <ion-label>
+          <h2>{{payment.transactions.invoiceNumber}}</h2>
+          <p>{{payment.transactions.description}}</p>
+          <p>{{payment.transactions.amount.total | currency:payment.transactions.amount.currency:'symbol-narrow'}}</p>
+        </ion-label>
+        <ion-note slot="end">{{payment?.created | date}}</ion-note>
+      </ion-item>
+    </ion-virtual-scroll>
+
+    <!-- <ion-list>
+        <ion-item *ngFor="let payment of (payments$ | async)">
+            <ion-label>
+                <h2>{{payment.transactions.invoiceNumber}}</h2>
+                <p>{{payment.transactions.description}}</p>
+                <p>{{payment.transactions.amount.total | currency:payment.transactions.amount.currency:'symbol-narrow'}}</p>
+            </ion-label>
+            <ion-note slot="end">{{payment?.created | date}}</ion-note>
+        </ion-item>
+    </ion-list> -->
+
+    <ion-card *ngIf="!(payments$ | async)?.length && !isLoading">
+      <ion-card-content>
+        <ion-icon slot="start" name="information"></ion-icon>
+        There are no payment record!
+      </ion-card-content>
+    </ion-card>
+</ion-content>

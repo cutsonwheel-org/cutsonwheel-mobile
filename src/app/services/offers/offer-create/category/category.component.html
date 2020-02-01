@@ -1,0 +1,63 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Categories available</ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="onCancel()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+    <ion-list id="skeleton" *ngIf="isLoading">
+        <ion-item *ngFor="let item of [1,2,3,4,5,6,7,8,9]">
+            <ion-thumbnail slot="start">
+                <ion-skeleton-text></ion-skeleton-text>
+            </ion-thumbnail>
+            <ion-label>
+                <h2>
+                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                </h2>
+                <p>
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                </p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+    <ion-virtual-scroll [items]="(categories$ | async)" approxItemHeight="70px" [headerFn]="separateCategory">
+        <ion-item-divider *virtualHeader="let header" color="primary">
+            <ion-label>{{header}}</ion-label>
+        </ion-item-divider>
+        <ion-item *virtualItem="let category" (click)="onCategorySelected(category?.name)">
+            <ion-avatar slot="start">
+                <ion-img [src]="category.image"></ion-img>
+            </ion-avatar>
+            <ion-label>{{ category.name }}</ion-label>
+        </ion-item>
+    </ion-virtual-scroll>
+
+    <ion-card *ngIf="!(categories$ | async)?.length && !isLoading">
+        <ion-card-content>
+            <ion-item lines="none">
+                <ion-icon slot="start" name="information-circle"></ion-icon>
+                <ion-label>There are no category listed yet!</ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+
+    <!-- <form [formGroup]="myForm">
+        <div class="ion-form-group">
+            <ion-auto-complete [dataProvider]="categoriesService" formControlName="category" (itemSelected)="onCategorySelected($event)" [template]="plainText" [options]="{ placeholder : 'Select Category' }"></ion-auto-complete>
+        </div>
+        <ng-template #plainText let-attrs="attrs">
+            <ion-item>
+                <ion-avatar slot="start">
+                    <img [src]="attrs.data.image">
+                </ion-avatar>
+                <ion-label [innerHTML]="attrs.data.name | boldprefix:attrs.keyword"></ion-label>
+            </ion-item>
+        </ng-template>
+    </form> -->
+</ion-content>

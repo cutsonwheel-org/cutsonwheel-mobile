@@ -1,0 +1,38 @@
+<ion-item>
+    <ion-thumbnail slot="start">
+        <ion-img [src]="offer.imageUrl"></ion-img>
+    </ion-thumbnail>
+    <ion-label>
+
+        <ion-note slot="end" class="note" [ngStyle]="{'background-color':offer.status === 'active' ? 'green' : 'red' }">&nbsp;</ion-note>
+        <h2>{{ offer.title }}</h2>
+
+        <p>{{ offer.description }}</p>
+        <div class="offer-details">
+          <div>
+            <ion-icon name="calendar"></ion-icon>
+            <ion-text class="space-left">
+              <ng-container *ngIf="offer.availability === 'alldays'; else options">
+                All Days
+              </ng-container>
+              <ng-template #options>
+                {{ offer.availability != 'weekdays' ? 'Week end': 'Week days'}}
+              </ng-template>
+            </ion-text>
+          </div>
+          <div>
+            <ion-icon name="clock"></ion-icon>
+            <ion-text class="space-left">
+              {{ offer.duration }}
+            </ion-text>
+          </div>
+          <div>
+            <ion-icon name="cash"></ion-icon>
+            <ion-text class="space-left">
+              {{ offer.cost  }}
+            </ion-text>
+          </div>
+        </div>
+    </ion-label>
+</ion-item>
+

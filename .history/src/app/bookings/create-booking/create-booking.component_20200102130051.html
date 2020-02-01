@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Pick a date/time</ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="onCancel()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-card>
+    <img [src]="selectedOffer?.imageUrl" />
+    <ion-card-header>
+      <ion-card-title>{{selectedOffer?.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{selectedOffer?.description}}
+    </ion-card-content>
+  </ion-card>
+    <form (ngSubmit)="onBookOffer()" #f="ngForm">
+      <ion-list>
+        <ion-item>
+          <ion-label>Date</ion-label>
+          <ion-datetime display-format="MMM DD, YYYY" picker-format="MMM DD YYYY" placeholder="Select Date" [min]="date" [ngModel]="datePicked" name="date-picked" required></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label>Time</ion-label>
+          <ion-datetime display-format="hh:mm A" picker-format="hh:mm A" placeholder="Select Time" [ngModel]="timePicked" name="time-picked" required></ion-datetime>
+        </ion-item>
+      </ion-list>
+
+        <ion-button type="submit" color="primary" expand="block" [disabled]="!f.valid">
+          Set Date
+      </ion-button>
+    </form>
+</ion-content>

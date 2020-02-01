@@ -1,0 +1,52 @@
+<ion-app>
+    <ion-menu contentId="my-content" side="start">
+        <ion-header>
+            <ion-toolbar color="primary">
+                <ion-title>
+                    Cutsonwheel
+                </ion-title>
+            </ion-toolbar>
+
+            <div id="my-content">
+                <ion-list *ngIf="user">
+                  <ion-item lines="none" routerLink="/profile">
+                    <ion-icon name="contact" slot="start"></ion-icon>
+                    <ion-label>Logged in as: {{ user?.displayName }}</ion-label>
+                  </ion-item>
+
+                    <ion-menu-toggle>
+                        <ion-item lines="none" routerLink="/t/services/discover">
+                            <ion-icon name="business" slot="start"></ion-icon>
+                            <ion-label>Discover Services</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle>
+                        <ion-item lines="none" routerLink="/t/services/offers">
+                            <ion-icon name="globe" slot="start"></ion-icon>
+                            <ion-label>My Offers</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle>
+                        <ion-item lines="none" routerLink="/t/bookings">
+                            <ion-icon name="calendar" slot="start"></ion-icon>
+                            <ion-label>My Bookings</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle>
+                        <ion-item lines="none" routerLink="/t/profiles">
+                            <ion-icon name="contact" slot="start"></ion-icon>
+                            <ion-label>My Profile</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                    <ion-menu-toggle>
+                        <ion-item lines="none" (click)="onLogout()" button>
+                            <ion-icon name="exit" slot="start"></ion-icon>
+                            <ion-label>Logout</ion-label>
+                        </ion-item>
+                    </ion-menu-toggle>
+                </ion-list>
+            </div>
+        </ion-header>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+</ion-app>

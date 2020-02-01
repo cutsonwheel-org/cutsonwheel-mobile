@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/t/bookings"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{detail?.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Location
+    </ion-list-header>
+    <ion-item>
+      <ion-label>{{detail?.location.address}}</ion-label>
+      <ion-icon slot="end" name="pin" (click)="onViewLocation()"></ion-icon>
+    </ion-item>
+
+    <ion-list-header>
+      Assistant/Service
+    </ion-list-header>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img [src]="detail?.avatarUrl"/>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>{{ detail?.firstname}} {{detail?.lastname }}</h3>
+        <p>{{ detail?.classification }}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{detail?.type}}</ion-label>
+      <ion-chip outline slot="end" color="primary">
+        <ion-icon name="cash"></ion-icon>
+        <ion-label>{{ detail?.cost | currency }}</ion-label>
+      </ion-chip>
+    </ion-item>
+
+    <ion-list-header>
+      Date/Time
+    </ion-list-header>
+    <ion-item>
+      <ion-chip>
+        <ion-icon name="calendar"></ion-icon>
+        <ion-label>{{detail?.schedule.datePicked | date }}</ion-label>
+      </ion-chip>
+      <ion-chip>
+        <ion-icon name="clock"></ion-icon>
+        <ion-label>{{detail?.schedule.timePicked }}</ion-label>
+      </ion-chip>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>News</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-list id="skeleton">
+    <ion-list-header>
+      <ion-skeleton-text animated style="width: 80px"></ion-skeleton-text>
+    </ion-list-header>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </h2>
+        <h3>
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </h2>
+        <h3>
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </h2>
+        <h3>
+          <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
+  <ion-virtual-scroll [items]="news" approxItemHeight="70px">
+    <ion-item [routerLink]="['/t/', 'news', 'news-detail', news.id]" detail *virtualItem="let news" >
+        <ion-thumbnail slot="start">
+            <ion-img [src]="news.featuredImage"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+            <h2>{{ news.title }}</h2>
+            <h3>{{news.published.seconds * 1000 | date }}</h3>
+            <p>{{ news.description }}</p>
+        </ion-label>
+    </ion-item>
+  </ion-virtual-scroll>
+
+  <ion-virtual-scroll [items]="(news$ | async)" approxItemHeight="70px">
+    <ion-item [routerLink]="['/t/', 'news', 'news-detail', news.id]" detail *virtualItem="let news" >
+        <ion-thumbnail slot="start">
+            <ion-img [src]="news.featuredImage"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+            <h2>{{ news.title }}</h2>
+            <h3>{{news.published.seconds * 1000 | date }}</h3>
+            <p>{{ news.description }}</p>
+        </ion-label>
+    </ion-item>
+  </ion-virtual-scroll>
+  <ion-card *ngIf="!(news$ | async)?.length">
+    <ion-card-content>
+      <ion-icon slot="start" name="information"></ion-icon>
+      No news avaiable for now!
+    </ion-card-content>
+  </ion-card>
+</ion-content>

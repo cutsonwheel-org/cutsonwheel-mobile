@@ -1,0 +1,33 @@
+<ng-container *ngIf="role === 'assistant'; else clientItem">
+  <!--
+    assistant
+    ----------
+    display client image
+    type
+    status
+   -->
+  <ion-item>
+    <app-booking-item-avatar [userId]="booking.userId"></app-booking-item-avatar>
+    <ion-label>
+      <h3>{{ booking.assistant.assisstantId }}</h3>
+      <p>Schedule: {{ booking.schedule.datePicked | date }} - {{ booking.schedule.timePicked }}</p>
+    </ion-label>
+  </ion-item>
+</ng-container>
+<ng-template #clientItem>
+  <!--
+  client item
+  --------
+  display assisant image
+  type
+  status
+  -->
+  <ion-item>
+    <app-booking-item-avatar [userId]="booking.assistant.assisstantId"></app-booking-item-avatar>
+    <ion-label>
+      <h3>{{ booking.assistant.assisstantId }}</h3>
+      <p>Schedule: {{ booking.schedule.datePicked | date }} - {{ booking.schedule.timePicked }}</p>
+    </ion-label>
+  </ion-item>
+</ng-template>
+

@@ -1,0 +1,51 @@
+<ion-list>
+    <ion-item>
+        <ion-avatar slot="start">
+            <img [src]="users?.photoURL ? users?.photoURL : '../../assets/images/avatar.png'">
+        </ion-avatar>
+        <ion-label>
+            <h3>{{users?.displayName}}</h3>
+            <p>{{users?.email}}</p>
+        </ion-label>
+    </ion-item>
+    <ion-menu-toggle>
+        <ion-item lines="none" routerLink="/t/services/discover">
+            <ion-icon name="business" slot="start"></ion-icon>
+            <ion-label>Discover</ion-label>
+        </ion-item>
+    </ion-menu-toggle>
+    <!-- <ng-container *ngIf="isOfferActive">
+        <ion-menu-toggle>
+            <ion-item lines="none" routerLink="/t/services/offers">
+                <ion-icon name="globe" slot="start"></ion-icon>
+                <ion-label>Offers</ion-label>
+                <ion-badge slot="end" color="danger">{{totalOffer}}</ion-badge>
+            </ion-item>
+        </ion-menu-toggle>
+    </ng-container>
+    <ion-menu-toggle>
+        <ion-item lines="none" routerLink="/t/bookings">
+            <ion-icon name="calendar" slot="start"></ion-icon>
+            <ion-label>Bookings</ion-label>
+            <ion-badge slot="end" color="danger">{{totalBooking}}</ion-badge>
+        </ion-item>
+    </ion-menu-toggle> -->
+    <ion-menu-toggle>
+        <ion-item lines="none" routerLink="/t/payments">
+            <ion-icon name="cash" slot="start"></ion-icon>
+            <ion-label>Wallet</ion-label>
+        </ion-item>
+    </ion-menu-toggle>
+    <ion-menu-toggle>
+      <ion-item lines="none" routerLink="/t/payments">
+        <ion-icon name="information"></ion-icon>
+          <ion-label>News</ion-label>
+      </ion-item>
+  </ion-menu-toggle>
+    <ion-menu-toggle>
+        <ion-item lines="none" (click)="onLogout()" button>
+            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-label>Logout</ion-label>
+        </ion-item>
+    </ion-menu-toggle>
+</ion-list>

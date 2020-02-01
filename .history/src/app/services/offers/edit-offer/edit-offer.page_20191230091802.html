@@ -1,0 +1,99 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Edit Offer</ion-title>
+        <ion-buttons slot="primary">
+            <ion-button (click)="onUpdateOffer()" [disabled]="!form?.valid || !form.get('image').value">
+                <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <form [formGroup]="form">
+    <ion-list class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="floating">Title</ion-label>
+        <ion-input type="text" autocomplete autocorrect formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item lines="none" *ngIf="!form.get('title').valid && form.get('title').touched">
+        <p>Title must be between 1 and 250 characters.</p>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Short Description</ion-label>
+        <ion-textarea rows="3" formControlName="description"></ion-textarea>
+      </ion-item>
+      <ion-item lines="none" *ngIf="!form.get('description').valid && form.get('description').touched">
+        <p>Description must be between 1 and 180 characters.</p>
+      </ion-item>
+      <ion-item>
+        <ion-label>Status</ion-label>
+        <ion-select formControlName="status" placeholder="Select">
+          <ion-select-option value="active">Active</ion-select-option>
+          <ion-select-option value="archive">Archive</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none" *ngIf="!form.get('status').valid && form.get('status').touched">
+        <p>Status is required.</p>
+      </ion-item>
+      <ion-item-divider  color="light"></ion-item-divider>
+      <ion-radio-group formControlName="availability" (ionSelect)="onAvailabilitySelected($event)">
+        <ion-list-header>
+          <ion-label>Availability</ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Week days only</ion-label>
+          <ion-radio slot="start" value="weekdays"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Week ends only</ion-label>
+          <ion-radio slot="start" value="weekends"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>All days</ion-label>
+          <ion-radio slot="start" value="alldays"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+      <ion-item lines="none" *ngIf="!form.get('availability').valid && form.get('availability').touched">
+        <p>Availability is required.</p>
+      </ion-item>
+      <ion-item-divider  color="light"></ion-item-divider>
+      <ion-list-header>Services detail</ion-list-header>
+      <ion-item>
+        <ion-label position="floating">Type</ion-label>
+        <ion-input formControlName="type"></ion-input>
+      </ion-item>
+      <ion-item lines="none" *ngIf="!form.get('type').valid && form.get('type').touched">
+        <p>Type is required.</p>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Duration</ion-label>
+        <ion-input formControlName="duration"></ion-input>
+        <ion-note slot="end">min/hour</ion-note>
+      </ion-item>
+      <ion-item lines="none" *ngIf="!form.get('type').valid && form.get('type').touched">
+        <p>Duration is required.</p>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Cost</ion-label>
+        <ion-input type="number" formControlName="cost"></ion-input>
+        <ion-note slot="end">.00</ion-note>
+      </ion-item>
+      <ion-item-divider color="light"></ion-item-divider>
+      <ion-item lines="none" *ngIf="!form.get('cost').valid && form.get('cost').touched">
+        <p>Cost is required.</p>
+      </ion-item>
+      <ion-list-header>Sample of Offer</ion-list-header>
+      <!-- <ng-container *ngIf="form.get('image').value">
+        <div class="picker">
+          <ion-img role="button" class="image" (click)="onPickImage()" [src]="form.get('image').value"></ion-img>
+        </div>
+      </ng-container>
+    *ngIf="!form.get('image').value" -->
+      <app-image-picker [showPreview]="defaultImage" (imagePick)="onImagePicked($event)"></app-image-picker>
+    </ion-list>
+  </form>
+</ion-content>

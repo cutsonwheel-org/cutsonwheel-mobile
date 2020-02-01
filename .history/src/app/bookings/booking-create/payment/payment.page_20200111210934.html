@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/t/bookings/booking-create/review"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Final step</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  fullscreen class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Amount to Pay</ion-card-title>
+      <ion-card-subtitle>{{assistant.selectedServices.length}} service{{ assistant.selectedServices.length | i18nPlural: mapping }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content class="ion-text-center">
+      <ion-text>
+        <h2>{{assistant.subTotal | currency:'PHP':'symbol-narrow' }}</h2>
+      </ion-text>
+    </ion-card-content>
+  </ion-card>
+  <section>
+    <ion-button color="primary" expand="block" fill="outline" (click)="onConfirmed()">Confirm & Pay Later</ion-button>
+    <ion-button color="warning" expand="block" (click)="onCancel()">cancel</ion-button>
+  </section>
+</ion-content>

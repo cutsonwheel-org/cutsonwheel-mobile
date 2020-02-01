@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-title>Skill</ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="onNext()" [disabled]="!this.skills">
+          <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ng-container *ngIf="!classificationSelected">
+        <ion-item *ngFor="let classification of (classifications | async)" (click)="onPickedSkill(classification.name)">
+          <ion-thumbnail slot="start">
+            <ion-img [src]="classification.image"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+              <h2>{{ classification.name }}</h2>
+              <p>{{ classification.description }}</p>
+          </ion-label>
+        </ion-item>
+    </ng-container>
+    <ng-container *ngIf="classificationSelected">
+      <ion-radio-group name="role" (ionChange)="levelSelected($event)">
+        <ion-list-header>
+          <ion-label>Select account type</ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Beginner</ion-label>
+          <ion-radio slot="start" value="beginner"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Intermediate</ion-label>
+          <ion-radio slot="start" value="intermediate"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Expert</ion-label>
+          <ion-radio slot="start" value="expert"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ng-container>
+  </ion-list>
+</ion-content>

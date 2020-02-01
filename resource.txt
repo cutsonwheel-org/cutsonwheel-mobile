@@ -1,0 +1,36 @@
+My Appointment
+    Upcoming
+    Previous
+        {Date}  {img} {service}
+        {Time}  {assistantName}
+
+    pick a Date
+    pick a Time
+    payment method
+        [paypal, cash, later]
+---------
+Thank you page
+    Thank you for choosing us
+    we'll see you on appointment day
+
+    Appointment Summary
+    Time
+    service
+    assistantName
+    payment
+
+    [don button]
+-----
+settings
+  {image} {name}
+  {phoneNumber}
+  [edit][share]
+  {count} Services
+  {count} Offers
+  chat
+  privacy
+  security
+  notifications
+  payments
+  language
+  logout

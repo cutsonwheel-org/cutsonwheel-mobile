@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>Upload Picture</ion-title>
+      <ion-buttons slot="primary">
+          <ion-button (click)="onCancel()">
+              <ion-icon name="close"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content tclass="ion-padding ion-text-center">
+  <!-- [showPreview]="form.get('image').value" -->
+  <app-image-picker  (imagePick)="onImagePicked($event)"></app-image-picker>
+</ion-content>

@@ -1,0 +1,97 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>My Wallet</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen class="ion-padding">
+    <ion-card>
+        <ion-card-header class="ion-text-center">
+            <ion-card-subtitle>Wallet Balance</ion-card-subtitle>
+            <ion-card-title>{{balance | currency:'PHP':'symbol-narrow'}}</ion-card-title>
+        </ion-card-header>
+    </ion-card>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+              <div id="paypal-button-container"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=AeGqI_BcI2FsmEYVBH0XL-zSsOkcj_Ncb_2Zzic48r_l8xysSoZEexVUIP13w3RE5jAKYtC0FxrsGFBf&currency=PHP" data-sdk-integration-source="button-factory"></script>
+<script>
+    paypal.Buttons({
+        style: {
+            shape: 'pill',
+            color: 'blue',
+            layout: 'vertical',
+            label: 'pay',
+
+        },
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '100'
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                alert('Transaction completed by ' + details.payer.name.given_name + '!');
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+                <!-- <ion-button expand="block" fill="outline" shape="round" color="secondary"  (click)="onDeposit()">
+                    <ion-icon slot="start" name="card"></ion-icon>
+                    Deposit
+                </ion-button> -->
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-list id="skeleton" *ngIf="isLoading">
+        <ion-item *ngFor="let item of [1,2,3,4,5,6,7]">
+            <ion-label>
+                <h2>
+                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                </h2>
+                <p>
+                    <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+                </p>
+            </ion-label>
+            <ion-note slot="end">
+                <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            </ion-note>
+        </ion-item>
+    </ion-list>
+    <ion-list *ngIf="wallets.length  && !isLoading">
+        <ion-item *ngFor="let wallet of wallets" detail (click)="onViewDetail(wallet?.id)">
+            <ion-label>
+                <h2>Invoice #: <b>{{wallet.transactions.invoiceNumber}}</b></h2>
+                <p>{{wallet.paymentCreatedTransformed | date:'mediumDate'}}</p>
+            </ion-label>
+            <ion-note slot="end">
+                {{wallet.transactions.amount.total | currency:wallet.transactions.amount.currency:'symbol-narrow'}}
+            </ion-note>
+        </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)" *ngIf="wallets.length">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more transactions...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <ion-card *ngIf="wallets.length === 0 && !isLoading">
+        <ion-card-content>
+            <ion-item lines="none">
+                <ion-icon slot="start" name="information-circle"></ion-icon>
+                <ion-label>No transaction found!</ion-label>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

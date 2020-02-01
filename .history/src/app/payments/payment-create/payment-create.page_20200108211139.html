@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/payments"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Create Payment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ng-container *ngIf="isLoading">
+      <ion-card class="ion-text-center">
+          <!-- <img [src]="detail?.offer.imageUrl"> -->
+          <ion-card-header>
+              <ion-card-subtitle>
+                  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+              </ion-card-subtitle>
+              <ion-card-title>
+                  <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+              </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+              <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-list lines="none">
+          <ion-item>
+              <ion-label position="floating">
+                  <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+              </ion-label>
+          </ion-item>
+      </ion-list>
+      <section>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+      </section>
+  </ng-container>
+  <ng-container *ngIf="!isLoading">
+    <form #f="ngForm" (ngSubmit)="onPaymentConfirm(f)">
+      <ion-card class="ion-text-center">
+          <ion-card-header>
+              <ion-card-subtitle>{{detail?.offer.title}}</ion-card-subtitle>
+              <ion-card-title>{{amount | currency:'PHP':'symbol-narrow' }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+              {{detail?.offer.description}}
+          </ion-card-content>
+      </ion-card>
+      <ion-list>
+          <ion-item>
+              <ion-label position="floating">
+                  Add Note
+              </ion-label>
+              <ion-textarea rows="6" [(ngModel)]="note"></ion-textarea>
+          </ion-item>
+      </ion-list>
+      <section>
+          <ion-button expand="block" type="submit">Paid</ion-button>
+      </section>
+    </form>
+  </ng-container>
+</ion-content>

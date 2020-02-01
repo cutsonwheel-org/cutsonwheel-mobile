@@ -1,0 +1,15 @@
+<div *ngIf="role === 'assistant'; else clientItem">
+  assistant
+</div>
+<ng-template #clientItem>
+  client
+</ng-template>
+<ion-item>
+  <!-- <ion-avatar slot="start">
+      <ion-img [src]="booking.userId"></ion-img>
+  </ion-avatar> -->
+  <ion-label>
+      <h5>{{ booking.userId }}</h5>
+      <p>Schedule: {{ booking.schedule.datePicked | date }} - {{ booking.schedule.timePicked }}</p>
+  </ion-label>
+</ion-item>

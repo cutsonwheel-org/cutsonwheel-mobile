@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Wallet</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>Card Title</ion-card-title>
+    </ion-card-header>
+    <ion-item>
+      <ion-icon name="pin" slot="start"></ion-icon>
+      <ion-label>ion-item in a card, icon left, button right</ion-label>
+      <ion-button fill="outline" slot="end">View</ion-button>
+    </ion-item>
+    <ion-card-content>
+      Keep close to Nature's heart... and break clear away, once in awhile,
+      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+    </ion-card-content>
+  </ion-card>
+  <ion-item>
+    <ion-label>Balance: {{balance | currency:'PHP':'symbol-narrow'}}</ion-label>
+  </ion-item>
+
+  <ion-virtual-scroll [items]="wallets" approxItemHeight="70px">
+    <ion-item [routerLink]="['/t/', 'wallet', 'wallet-detail', wallet.id]" detail *virtualItem="let wallet">
+      <app-wallet-item [wallet]="wallet" (totalItemWallet)="getEachTotal($event)"></app-wallet-item>
+    </ion-item>
+  </ion-virtual-scroll>
+
+  <ion-card *ngIf="!wallets">
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="information-circle"></ion-icon>
+        <ion-label>No balance avaiable for now!</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

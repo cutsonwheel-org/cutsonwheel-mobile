@@ -1,0 +1,23 @@
+<ion-item>
+    <ion-icon name="calendar" slot="start"></ion-icon>
+    <ion-label>
+        {{booking.schedule | date:'mediumDate'}} @ {{booking.schedule | date:'shortTime'}}
+    </ion-label>
+    <ion-icon name="close" slot="end" color="danger" (click)="onCancel(booking.id)" *ngIf="booking.userId === user.uid && booking.status === 'pending'"></ion-icon>
+    <ion-icon name="eye" slot="end" color="primary" (click)="onView(booking.id)" *ngIf="isAssistant && booking.status === 'pending' || booking.status === 'accepted'"></ion-icon>
+    <ion-icon name="close" slot="end" color="primary" (click)="onCancel(booking.id)" *ngIf="!isAssistant && booking.status === 'accepted'"></ion-icon>
+    <ion-button slot="end" color="primary" fill="outline" (click)="onPay(booking.id)" *ngIf="!isAssistant && booking?.status === 'done'">Pay</ion-button>
+
+    <ion-note slot="end" color="danger" *ngIf="isAssistant && booking?.status === 'done'">
+      Unpaid
+    </ion-note>
+    <ion-note slot="end" color="success"  *ngIf="booking?.status === 'paid'">
+      Paid
+    </ion-note>
+  </ion-item>
+<ion-chip outline color="primary" *ngFor="let service of booking.assistant.selectedServices">
+    <ion-avatar>
+        <img [src]="service.imageUrl" />
+    </ion-avatar>
+    <ion-label>{{service.title}}</ion-label>
+</ion-chip>

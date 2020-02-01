@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Wallet</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+  <ion-virtual-scroll [items]="(wallet$ | async)" approxItemHeight="70px">
+    <ion-item [routerLink]="['/t/', 'wallet', 'wallet-detail', wallet.id]" detail *virtualItem="let wallet">
+      <app-wallet-item [wallet]="wallet" (ngAfterContentInit)="getTotal($event)"></app-wallet-item>
+    </ion-item>
+  </ion-virtual-scroll>
+
+  <ion-card *ngIf="!(wallet$ | async)?.length">
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="information-circle"></ion-icon>
+        <ion-label>No balance avaiable for now!</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

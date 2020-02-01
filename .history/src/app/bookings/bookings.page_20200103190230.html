@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Your Bookings</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  {{userInfo?.profile.role}}
+  <ion-list>
+      <ion-item-sliding *ngFor="let booking of (loadedBookings$ | async)" #slidingBooking>
+        <app-booking-item [booking]="booking"></app-booking-item>
+
+        <ion-item-options>
+            <ion-item-option color="danger" (click)="onCancelBooking(booking.id, slidingBooking)">
+                <ion-icon name="trash" slot="icon-only"></ion-icon>
+            </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

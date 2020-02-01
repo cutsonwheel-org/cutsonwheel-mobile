@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-title>Skill</ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="onNext()" [disabled]="!this.skills">
+          <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item *ngFor="let classification of (classifications | async)">
+    <ion-label>{{classification.name}}</ion-label>
+    <ion-radio slot="start" color="primary" [value]="classification.slug" [checked]="classification.slug == selectedClassification"></ion-radio>
+</ion-item>
+</ion-content>

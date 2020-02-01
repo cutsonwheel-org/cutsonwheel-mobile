@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>
+            Cuts On Wheel
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button>
+                Skip
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen scroll-y="false" class="ion-padding">
+    <section *ngIf="user">
+        <header class="ion-text-center">You are curently logged in as: <br/> {{user?.displayName}}
+        </header>
+        <ion-button color="secondary" fill="outline" shape="round" expand="block" [routerLink]="['/t/services/discover']">Discover Services</ion-button>
+    </section>
+    <ion-slides *ngIf="!user">
+        <ion-slide>
+            <img src="./../../assets/images/slide-1.png" />
+            <h2>Welcome to <b>custonwheel</b></h2>
+            <p>The <b>ionic conference app</b> is a practical preview of the ionic framework in action, and a demonstration of proper code use.</p>
+        </ion-slide>
+
+        <ion-slide>
+            <img src="./../../assets/images/slide-2.png" />
+            <h2>Set Booking</h2>
+            <p>your one stop personal grooming servinces.</p>
+        </ion-slide>
+
+        <ion-slide>
+            <img src="./../../assets/images/slide-3.png" />
+            <h2>Wait to Serve</h2>
+            <p><b>Ionic Pro</b> is a powerful set of services and features built on top of Ionic Framework that brings a totally new level of app development agility to mobile dev teams.</p>
+        </ion-slide>
+
+        <ion-slide>
+            <img src="./../../assets/images/slide-4.png" />
+            <h2>Ready to Book ?</h2>
+            <ion-button routerLink="/auth" fill="clear">Get started
+                <ion-icon slot="end" name="arrow-forward"></ion-icon>
+            </ion-button>
+        </ion-slide>
+    </ion-slides>
+</ion-content>
+<ion-footer class="ion-text-center">
+    <p>Company Reg No. PL201906775</p>
+</ion-footer>

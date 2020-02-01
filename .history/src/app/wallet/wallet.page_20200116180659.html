@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Wallet</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+  <ion-item-sliding *ngFor="let wallet of (wallet$ | async)" #slidingBooking>
+    <app-wallet-item [wallet]="wallet"></app-wallet-item>
+  </ion-item-sliding>
+  <ion-card *ngIf="!(wallet$ | async)?.length">
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="information-circle"></ion-icon>
+        <ion-label>No balance avaiable for now!</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

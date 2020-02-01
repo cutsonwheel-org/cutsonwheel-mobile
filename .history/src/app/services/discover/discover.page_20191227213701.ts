@@ -1,0 +1,172 @@
+import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
+import { SegmentChangeEventDetail } from '@ionic/core';
+import { Observable, of } from 'rxjs';
+
+import { Offers } from '../offers/offers';
+import { OffersService } from '../offers/offers.service';
+
+import { Plugins, Capacitor } from '@capacitor/core';
+import { PlaceLocation, Coordinates } from '../../services/location';
+import { AlertController } from '@ionic/angular';
+import { switchMap, map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { UsersService } from '../../users/users.service';
+import { AuthService } from 'src/app/auth/auth.service';
+@Component({
+  selector: 'app-discover',
+  templateUrl: './discover.page.html',
+  styleUrls: ['./discover.page.scss']
+})
+export class DiscoverPage implements OnInit {
+  public isLoading: boolean;
+  public offers: Observable<Offers[]>;
+  user: firebase.User;
+
+  get offersData() {
+    return this.offersService.getOffers('');
+  }
+
+  constructor(
+    private offersService: OffersService,
+    private menuCtrl: MenuController,
+    private alertCtrl: AlertController,
+    private http: HttpClient,
+    private userService: UsersService,
+    private authService: AuthService
+  ) {
+    this.isLoading = false;
+  }
+
+  ngOnInit() {
+    this.offers = this.offersData;
+    // this.locateUser();
+  }
+
+  ionViewWillEnter() {
+    this.offers = this.offersData;
+  }
+
+  onOpenMenu() {
+    this.menuCtrl.toggle();
+  }
+
+  onClear() {
+    this.offers = this.offersData;
+  }
+
+  onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>) {
+    const searchTerm = event.detail.value;
+    if (!searchTerm) {
+      this.offers = this.offersData;
+    }
+    this.offers = this.offersService.getOffers(searchTerm);
+  }
+
+  private locateUser() {
+    if (!Capacitor.isPluginAvailable('Geolocation')) {
+      this.showErrorAlert();
+      return;
+    }
+    this.user = this.authService.getUsersProfile();
+
+
+    Plugins.Geolocation.getCurrentPosition()
+      .then(geoPosition => {
+        const coordinates: Coordinates = {
+          lat: geoPosition.coords.latitude,
+          lng: geoPosition.coords.longitude
+        };
+        this.createPlace(coordinates.lat, coordinates.lng);
+        // this.isLoading = false;
+      })
+      .catch(err => {
+        // this.isLoading = false;
+        this.showErrorAlert();
+      });
+        // Plugins.Geolocation.getCurrentPosition()
+        //   .then(geoPosition => {
+        //     const coordinates: Coordinates = {
+        //       lat: geoPosition.coords.latitude,
+        //       lng: geoPosition.coords.longitude
+        //     };
+        //     this.getAddress(coordinates.lat, coordinates.lng).subscribe(currentAddress => {
+        //       // const user  = {
+        //       //   id: u.uid,
+        //       //   address: currentAddress,
+        //       //   latitude: coordinates.lat,
+        //       //   longitude: coordinates.lng
+        //       // };
+        //       // this.userService.setUserLocation(user);
+        //       selectedLocation = PlaceLocation
+        //       this.userService.setLocation(selectedLocation, this.user.uid).then(() => {
+        //         this.getLocation(this.user.uid);
+        //       });
+        //     });
+        //   })
+        //   .catch(err => {
+        //     this.showErrorAlert();
+        //   });
+
+  }
+
+  private showErrorAlert() {
+    this.alertCtrl
+      .create({
+        header: 'Could not fetch location',
+        message: 'Please use the map to pick a location!',
+        buttons: ['Okay']
+      })
+      .then(alertEl => alertEl.present());
+  }
+
+  private createPlace(latitude: number, longitude: number) {
+    const pickedLocation: PlaceLocation = {
+      lat: latitude,
+      lng: longitude,
+      address: null,
+      staticMapImageUrl: null
+    };
+    this.isLoading = true;
+    this.getAddress(latitude, longitude)
+      .pipe(
+        switchMap(address => {
+          pickedLocation.address = address;
+          return of(
+            this.getMapImage(pickedLocation.lat, pickedLocation.lng, 14)
+          );
+        })
+      )
+      .subscribe(staticMapImageUrl => {
+        pickedLocation.staticMapImageUrl = staticMapImageUrl;
+        // this.selectedLocationImage = staticMapImageUrl;
+        console.log(pickedLocation);
+        // this.isLoading = false;
+        // this.locationPick.emit(pickedLocation);
+      });
+  }
+
+  private getAddress(lat: number, lng: number) {
+    return this.http
+      .get<any>(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${
+          environment.googleMapsApiKey
+        }`
+      )
+      .pipe(
+        map(geoData => {
+          if (!geoData || !geoData.results || geoData.results.length === 0) {
+            return null;
+          }
+          return geoData.results[0].formatted_address;
+        })
+      );
+  }
+
+  private getMapImage(lat: number, lng: number, zoom: number) {
+    return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoom}&size=500x300&maptype=roadmap
+    &markers=color:red%7Clabel:Place%7C${lat},${lng}
+    &key=${environment.googleMapsApiKey}`;
+  }
+}

@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>News</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <ion-list>
+    <ion-list-header>
+      Latest News
+    </ion-list-header>
+    <ion-item *ngFor="let news of news$ | async" (click)="onNewsDetail(news.id)">
+      <ion-avatar slot="start">
+        <img [src]="news.featuredImage">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{news.title}}</h2>
+        <h3>{{news.published}}</h3>
+        <p>{{news.description}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
+  <ion-virtual-scroll [items]="(news$ | async)" approxItemHeight="70px">
+    <ion-item-divider>
+      Latest News
+    </ion-item-divider>
+    <ion-item detail *virtualItem="let news" (click)="onNewsDetail(news.id)">
+        <ion-thumbnail slot="start">
+            <ion-img [src]="news.featuredImage"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+            <h2>{{ news.title }}</h2>
+            <h3>{{news.published}}</h3>
+            <p>{{ news.description }}</p>
+        </ion-label>
+    </ion-item>
+  </ion-virtual-scroll>
+  <ng-template #loading>
+    <p>Shows when no data, waiting for Api</p>
+  </ng-template>
+
+  <!-- <ion-list id="list"></ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+</ion-content>

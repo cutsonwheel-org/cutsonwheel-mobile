@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/t/bookings/booking-create/review"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Final step</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  fullscreen class="ion-padding">
+  <ion-item>
+    <ion-label>
+      <strong>Payment</strong>
+    </ion-label>
+  </ion-item>
+  <ion-list>
+    <ion-list-header>
+      Amount to Pay
+    </ion-list-header>
+    <ion-item>
+      <ion-label class="ion-text-right" slot="end">
+        <strong>{{assistant.subTotal | currency }}</strong>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <section>
+    <ion-button color="primary" expand="block" fill="outline" (click)="onConfirmed()">Confirm & Pay Later</ion-button>
+    <ion-button color="success" expand="block" (click)="onCancel()"></ion-button>
+  </section>
+</ion-content>

@@ -1,0 +1,27 @@
+<ng-container *ngIf="role === 'assistant'; else clientItem">
+  <ion-item>
+    <ion-thumbnail slot="start">
+      <app-booking-item-avatar [userId]="booking.userId"></app-booking-item-avatar>
+    </ion-thumbnail>
+    <ion-label>
+      <h3>{{ offer?.title }}</h3>
+      <p>{{lbl}}: {{user.displayName}}</p>
+      <p>Schedule: {{ booking.schedule.datePicked | date }} - {{ booking.schedule.timePicked }}</p>
+    </ion-label>
+    <ion-note slot="end" [color]="booking.status != 'canceled' ? 'primary' : 'danger'">{{ booking.status | uppercase }}</ion-note>
+  </ion-item>
+</ng-container>
+<ng-template #clientItem>
+  <ion-item>
+    <ion-thumbnail slot="start">
+      <app-booking-item-avatar [userId]="booking.assistant.assisstantId"></app-booking-item-avatar>
+    </ion-thumbnail>
+    <ion-label>
+      <h3>{{ offer?.title }}</h3>
+      <p>{{lbl}}: {{user.displayName}}</p>
+      <p>Schedule: {{ booking.schedule.datePicked | date }} - {{ booking.schedule.timePicked }}</p>
+    </ion-label>
+    <ion-note slot="end" [color]="booking.status != 'canceled' ? 'primary' : 'danger'">{{ booking.status | uppercase }}</ion-note>
+  </ion-item>
+</ng-template>
+

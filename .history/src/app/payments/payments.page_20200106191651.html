@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Payment History</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <!-- show skeleton loading -->
+    <ion-list>
+        <ion-item *ngFor="let payment of payments$">
+            <ion-label>
+                <h2>{{payment.transactions.invoiceNumber}}</h2>
+                <p>{{payment.transactions.description}}</p>
+                <p>{{payment.transactions.amount.total | currency:payment.transactions.amount.currency:'symbol-narrow'}}</p>
+            </ion-label>
+            <ion-note slot="end">{{payment.datePaid | date}}</ion-note>
+        </ion-item>
+    </ion-list>
+</ion-content>

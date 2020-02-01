@@ -1,0 +1,100 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/t/bookings"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{detail?.title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-list-header>
+            Location
+        </ion-list-header>
+        <ion-item>
+            <ion-label>{{detail?.location.address}}</ion-label>
+            <ion-icon slot="end" name="navigate" (click)="onViewLocation(detail?.location.lat, detail?.location.lng)"></ion-icon>
+        </ion-item>
+
+        <ion-list-header>
+            {{users?.roles.assistant ? 'Assistant' : 'Client'}}
+        </ion-list-header>
+        <ion-item>
+            <ion-avatar slot="start">
+                <img [src]="users?.photoURL" />
+            </ion-avatar>
+            <ion-label>
+                {{ users.displayName }}
+            </ion-label>
+        </ion-item>
+        <ion-list-header>
+            Service
+        </ion-list-header>
+        <ion-item *ngFor="let service of detail?.assistant.selectedServices">
+            <ion-label>{{service.title}}</ion-label>
+            <ion-chip outline slot="end" color="primary">
+                <ion-icon name="cash"></ion-icon>
+                <ion-label>{{ service.charges | currency:'PHP':'symbol-narrow' }}</ion-label>
+            </ion-chip>
+        </ion-item>
+
+        <ion-list-header>
+            Date/Time
+        </ion-list-header>
+        <ion-item>
+            <ion-chip>
+                <ion-icon name="calendar"></ion-icon>
+                <ion-label>{{pickedSchedule | date:'mediumDate' }}</ion-label>
+            </ion-chip>
+            <ion-chip>
+                <ion-icon name="clock"></ion-icon>
+                <ion-label>{{pickedSchedule | date:'shortTime' }}</ion-label>
+            </ion-chip>
+        </ion-item>
+        <ion-item *ngIf="detail?.status != 'pending'" lines="none">
+            <ng-container *ngIf="detail?.status === 'accepted'; else declined">
+                <ion-chip outline color="secondary">
+                    <ion-icon name="checkmark"></ion-icon>
+                    <ion-label>{{ detail?.status | uppercase }}</ion-label>
+                </ion-chip>
+            </ng-container>
+            <ng-template #declined>
+                <ng-container *ngIf="detail?.status === 'paid'; else other">
+                    <ion-chip outline color="primary">
+                        <ion-icon name="checkmark"></ion-icon>
+                        <ion-label>{{ detail?.status | uppercase }}</ion-label>
+                    </ion-chip>
+                </ng-container>
+                <ng-template #other>
+                    <ng-container *ngIf="detail?.status === 'done'">
+                        <ion-chip outline color="secondary">
+                            <ion-icon name="information"></ion-icon>
+                            <ion-label>{{ detail?.status | uppercase }}</ion-label>
+                        </ion-chip>
+                    </ng-container>
+                    <ng-container *ngIf="detail?.status != 'done'">
+                        <ion-chip outline color="danger">
+                            <ion-icon name="close"></ion-icon>
+                            <ion-label>{{ detail?.status | uppercase }}</ion-label>
+                        </ion-chip>
+                    </ng-container>
+                </ng-template>
+
+            </ng-template>
+            <ion-button slot="end" color="danger" fill="outline" (click)="onUpdateStatus(detail?.id, 'canceled')" *ngIf="users?.roles.client && detail?.status != 'canceled' && detail?.status != 'declined' && detail?.status != 'done' && detail?.status != 'paid'">Cancel</ion-button>
+            <ion-button slot="end" color="primary" fill="outline" (click)="onUpdateStatus(detail?.id, 'done')" *ngIf="users?.roles.assistant && detail?.status === 'accepted'">Done</ion-button>
+        </ion-item>
+        <ion-item *ngIf="detail?.status === 'pending' && users.roles.client" lines="none">
+            <ion-button slot="end" color="danger" fill="outline" (click)="onUpdateStatus(detail?.id, 'canceled')">Cancel</ion-button>
+            <ion-chip outline color="secondary">
+                <ion-icon name="information"></ion-icon>
+                <ion-label>{{ detail?.status | uppercase }}</ion-label>
+            </ion-chip>
+        </ion-item>
+    </ion-list>
+    <section *ngIf="detail?.status === 'pending' && users.roles.assistant">
+        <ion-button expand="block" (click)="onUpdateStatus(detail?.id, 'accepted')">Accept</ion-button>
+        <ion-button clear expand="block" color="danger" fill="outline" (click)="onUpdateStatus(detail?.id, 'declined')">Decline</ion-button>
+    </section>
+</ion-content>

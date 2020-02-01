@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/booking"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Booking</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="location"
+    [checked]="(selectedSegment == 'location') ? true : false"
+    [disabled]="(selectedSegment != 'location') ? true : false">
+      <ion-label>Location</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="assistant"
+    [checked]="(selectedSegment == 'assistant') ? true : false"
+    [disabled]="(selectedSegment != 'assistant') ? true : false">
+      <ion-label>Assistant</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="schedule"
+    [checked]="(selectedSegment == 'schedule') ? true : false"
+    [disabled]="(selectedSegment != 'schedule') ? true : false">
+      <ion-label>Date/Time</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ng-container *ngIf="selectedSegment == 'location'">
+    <ion-button expand="block" fill="outline">Use my current location</ion-button>
+    <ion-button expand="block">Pick a location</ion-button>
+  </ng-container>
+  <ng-container *ngIf="selectedSegment == 'assistant'">
+
+  </ng-container>
+  <ng-container *ngIf="selectedSegment == 'schedule'">
+
+  </ng-container>
+</ion-content>

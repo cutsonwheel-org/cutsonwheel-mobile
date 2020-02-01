@@ -1,0 +1,27 @@
+<ion-item>
+    <ion-thumbnail slot="start">
+        <ion-img [src]="offer.imageUrl"></ion-img>
+    </ion-thumbnail>
+    <ion-label>
+
+        <ion-note slot="end" class="note" [ngStyle]="{'background-color':offer.status === 'active' ? 'green' : 'red' }">&nbsp;</ion-note>
+        <h2>{{ offer.title }}</h2>
+        <ng-container *ngIf="offer.availability === 'alldays'; else loggedOut">
+          <h3>All Days</h3>
+        </ng-container>
+        <ng-template #loggedOut>
+          <h3>{{ offer.availability != 'weekdays' ? 'Week end': 'Week days'}}</h3>
+        </ng-template>
+        <p>{{ offer.description }}</p>
+        <!-- <div class="offer-details">
+            <ion-icon name="calendar" color="primary"></ion-icon>
+            <ion-text class="space-left">{{ offer.isActive }}
+            </ion-text>
+            <span class="space-left">to</span>
+            <ion-icon name="calendar" class="space-left" color="primary"></ion-icon>
+            <ion-text class="space-left">{{ offer  }}
+            </ion-text>
+        </div> -->
+    </ion-label>
+</ion-item>
+

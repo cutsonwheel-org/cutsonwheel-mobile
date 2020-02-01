@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Profile</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+
+    <form>
+        <ion-list>
+            <app-image-picker [showPreview]="user.photoURL" (imagePick)="onImagePicked($event)"></app-image-picker>
+            <ion-item>
+                <ion-label position="floating">Firstname</ion-label>
+                <ion-input type="text" name="firstname" [(ngModel)]="firstname"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Lastname</ion-label>
+                <ion-input type="text" name="lastname" [(ngModel)]="lastname"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+                <ion-label position="stacked">Display name</ion-label>
+                <ion-input type="text" name="user?.displayName" [(ngModel)]="displayName"></ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-button (click)="onNext()" [disabled]="!this.firstname || !this.lastname">Next</ion-button>
+    </form>
+</ion-content>

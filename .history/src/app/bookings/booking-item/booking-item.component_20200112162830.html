@@ -1,0 +1,16 @@
+<ion-item>
+  <ion-icon name="calendar" slot="start"></ion-icon>
+  <ion-label>
+    {{booking.schedule | date:'mediumDate'}} @ {{booking.schedule | date:'shortTime'}}
+  </ion-label>
+  <ion-chip outline color="primary" *ngFor="let service of booking.assistant.selectedServices">
+    <ion-avatar>
+      <img [src]="service.imageUrl" />
+    </ion-avatar>
+    <ion-label>{{service.title}}</ion-label>
+  </ion-chip>
+  <ion-icon name="close" slot="end" color="danger" (click)="onCancel(booking.id)" *ngIf="booking.userId === userId && booking.status === 'pending'"></ion-icon>
+</ion-item>
+
+
+

@@ -1,0 +1,28 @@
+<ion-app>
+    <ion-menu contentId="my-content" side="start">
+        <ion-header>
+            <ion-toolbar color="primary">
+                <ion-title>
+                    logo
+                </ion-title>
+                <ion-buttons slot="secondary">
+                    <!-- <ion-button>
+                        <ion-icon slot="icon-only" name="megaphone"></ion-icon>
+                    </ion-button>
+                    <ion-button>
+                        <ion-icon slot="icon-only" name="help"></ion-icon>
+                    </ion-button> -->
+                    <!-- <ion-button (click)="onLogout()">
+                        <ion-icon slot="icon-only" name="exit"></ion-icon>
+                    </ion-button> -->
+                </ion-buttons>
+            </ion-toolbar>
+
+            <div id="my-content">
+                <app-menu-list></app-menu-list>
+            </div>
+        </ion-header>
+    </ion-menu>
+
+    <ion-router-outlet main></ion-router-outlet>
+</ion-app>

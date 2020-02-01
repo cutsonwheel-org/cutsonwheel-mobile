@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>News</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ul *ngIf="(newsData | async)?.length">
+    <li class="text" *ngFor="let news of newsData | async">
+      {{news.title}}
+    </li>
+  </ul>
+
+  <div *ngIf="!(newsData | async)?.length">
+    <p>Shows when no data, waiting for Api</p>
+  </div>
+
+  <ion-list id="list"></ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

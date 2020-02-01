@@ -1,0 +1,68 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Create Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item *ngIf="authError">
+        <div class="col-12 alert alert-danger">{{ authError?.message }}</div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">First name</ion-label>
+        <ion-input type="text" ngModel name="firstName" required firstName #firstName="ngModel"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!firstName.valid && firstName.touched" lines="none">
+          <p>Should be a valid firstName!</p>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Last name</ion-label>
+        <ion-input type="text" ngModel name="lastName" required lastName #lastName="ngModel"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="!lastName.valid && lastName.touched" lines="none">
+          <p>Should be a valid lastName!</p>
+      </ion-item>
+      <ion-list>
+        <ion-radio-group>
+          <ion-list-header>
+            <ion-label>What do you want?</ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label>I want to hire</ion-label>
+            <ion-radio slot="start" value="hire" checked></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>I want to work</ion-label>
+            <ion-radio slot="start" value="work"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+        <ion-item>
+            <ion-label position="floating">E-mail</ion-label>
+            <ion-input type="email" ngModel name="email" required email #email="ngModel"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!email.valid && email.touched" lines="none">
+            <p>Should be a valid email!</p>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" ngModel name="password" required minlength="8" #password="ngModel"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!password.valid && password.touched" lines="none">
+            <p>Should at least 8 characters long!</p>
+        </ion-item>
+    </ion-list>
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!f.valid">Create account</ion-button>
+    </div>
+
+  </form>
+
+</ion-content>
+<ion-footer class="ion-text-center">
+  <p role="button" routerLink="/auth/login">Already have an account.</p>
+  </ion-footer>

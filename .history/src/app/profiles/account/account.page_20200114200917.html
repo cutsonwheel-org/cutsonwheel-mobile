@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>My Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-tabs>
+    <!-- Tab bar -->
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="account">
+        <ion-icon name="person"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="contact">
+        <ion-icon name="call"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="settings">
+        <ion-icon name="settings"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+  <ion-list lines="full" class="ion-no-margin ion-no-padding" *ngIf="!isLoading">
+    <ion-item>
+        <ion-thumbnail slot="start" class="profile-thumbnail ion-text-center">
+            <img [src]="users?.photoURL ? users?.photoURL : '../../assets/images/avatar.png'" (click)="onImagePicked($event)">
+        </ion-thumbnail>
+        <ion-label>
+            <h3>Display name: {{users?.displayName}}</h3>
+            <p>Email: {{users?.email}}</p>
+            <p>Joined: {{users?.metadata.creationTime | date }}</p>
+        </ion-label>
+    </ion-item>
+</ion-list>
+<ion-card *ngIf="!isLoading">
+    <ion-item>
+        <app-location-picker slot="end" (locationPick)="onLocationPicked($event, users?.uid)"></app-location-picker>
+        <ion-label>Update Location</ion-label>
+    </ion-item>
+    <img [src]="location?.staticMapImageUrl" *ngIf="location" />
+    <ion-card-header *ngIf="location">
+        <ion-card-title>Address</ion-card-title>
+        <ion-card-subtitle>{{location?.lat}} - {{location?.lng}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content *ngIf="location">
+        {{location?.address}}
+    </ion-card-content>
+</ion-card>
+
+</ion-content>

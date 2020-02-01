@@ -1,0 +1,84 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>My Profile</ion-title>
+        <!-- <ion-buttons slot="primary">
+            <ion-button>
+                <ion-icon name="create" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons> -->
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full" class="ion-no-margin ion-no-padding">
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img [src]="user?.photoURL ? user?.photoURL : 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y'" (click)="onImagePicked($event)">
+      </ion-thumbnail>
+      <ion-label>
+        <h3>Display name: {{user?.displayName}}</h3>
+        <p>Email: {{user?.email}}</p>
+        <p>Joined: {{user?.metadata.creationTime | date }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-card>
+    <ion-item>
+      <app-location-picker slot="end" (locationPick)="onLocationPicked($event)"></app-location-picker>
+      <ion-label>Update Location</ion-label>
+    </ion-item>
+    <img [src]="location?.staticMapImageUrl" />
+    <ion-card-header>
+      <ion-card-title>Address</ion-card-title>
+      <ion-card-subtitle>{{location?.lat}} - {{location?.lng}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      {{location?.address}}
+
+    </ion-card-content>
+  </ion-card>
+  <!-- Default Segment -->
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="settings" checked>
+      <ion-label>Settings</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="notifications">
+      <ion-label>Notifications</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ng-container *ngIf="selectedSegment == 'settings'">
+    <ion-list>
+      <ion-item>
+        <ion-label>Visibility (private)</ion-label>
+        <ion-checkbox slot="end"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>Preference</ion-label>
+        <ion-checkbox slot="end"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>Classification</ion-label>
+        <ion-checkbox slot="end"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+  <ng-container *ngIf="selectedSegment == 'notifications'">
+    <ion-list>
+      <ion-item>
+        <ion-label>Send push notification</ion-label>
+        <ion-checkbox slot="end"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>Send an email for invitations</ion-label>
+        <ion-checkbox slot="end"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label>Send an email events and updates</ion-label>
+        <ion-checkbox slot="end"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+</ion-content>

@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Profile</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+
+    <form >
+        <ion-list lines="full" class="ion-no-margin ion-no-padding">
+            <ion-item>
+              <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="text" name="firstname" [(ngModel)]="users.firstname" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Middle Name (optional)</ion-label>
+              <ion-input type="text" name="middlename" [(ngModel)]="users.middlename"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input type="text" name="lastname" [(ngModel)]="users.lastname" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Current address <ion-text color="danger">*</ion-text></ion-label>
+              <ion-textarea name="address" [(ngModel)]="users.location.address" required></ion-textarea>
+            </ion-item>
+        </ion-list>
+        <div class="ion-padding">
+          <ion-button expand="block" (click)="onNext()" [disabled]="!users.firstname || !users.lastname || !users.location.address" class="ion-no-margin">Update</ion-button>
+        </div>
+    </form >
+</ion-content>

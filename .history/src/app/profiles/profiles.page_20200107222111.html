@@ -1,0 +1,119 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>My Profile</ion-title>
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Default Segment -->
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="account" checked>
+      <ion-label>Account</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="settings">
+      <ion-label>Settings</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="notifications">
+      <ion-label>Notifications</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ng-container *ngIf="selectedSegment == 'account'">
+    <ion-list id="skeleton" *ngIf="isLoading">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-card *ngIf="isLoading">
+      <ion-item>
+        <ion-skeleton-text slot="end" animated style="width: 20%"></ion-skeleton-text>
+        <ion-label><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></ion-label>
+      </ion-item>
+      <ion-card-header>
+        <ion-card-title><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></ion-card-title>
+        <ion-card-subtitle><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-skeleton-text animated style="width: 95%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-list lines="full" class="ion-no-margin ion-no-padding" *ngIf="!isLoading">
+      <ion-item>
+        <ion-thumbnail slot="start" class="profile-thumbnail ion-text-center">
+          <ion-spinner name="crescent"></ion-spinner>
+          <img [src]="userInfo?.avatarUrl ? userInfo?.avatarUrl : '../../assets/images/avatar.png'" (click)="onImagePicked($event)">
+        </ion-thumbnail>
+        <ion-label>
+          <h3>Display name: {{userInfo?.displayName}}</h3>
+          <p>Email: {{userInfo?.email}}</p>
+          <p>Joined: {{userInfo?.metadata.creationTime | date }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-card  *ngIf="!isLoading">
+      <ion-item>
+        <app-location-picker slot="end" (locationPick)="onLocationPicked($event, userInfo?.uid)"></app-location-picker>
+        <ion-label>Update Location</ion-label>
+      </ion-item>
+      <img [src]="location?.staticMapImageUrl" *ngIf="location"/>
+      <ion-card-header  *ngIf="location">
+        <ion-card-title>Address</ion-card-title>
+        <ion-card-subtitle>{{location?.lat}} - {{location?.lng}}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content  *ngIf="location">
+        {{location?.address}}
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+  <ng-container *ngIf="selectedSegment == 'settings'">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label>Visibility</ion-label>
+          <ion-select [ngModel]="selectedVisibility" (ionChange)="visibilityChanged($event, userInfo?.uid)">
+            <ion-select-option *ngFor="let visibility of visibilities" [value]="visibility.val" >{{visibility.label}}</ion-select-option>
+          </ion-select>
+      </ion-item>
+      <ion-item *ngIf="userInfo?.profile.role != 'client'">
+        <ion-label>Experience level</ion-label>
+        <ion-select [ngModel]="selectedExperience" (ionChange)="experienceChanged($event, userInfo?.uid)">
+          <ion-select-option *ngFor="let experience of experiences" [value]="experience.val" >{{experience.label}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-radio-group (click)="classificationChanged($event, userInfo?.uid)" *ngIf="userInfo?.profile.role != 'client'">
+        <ion-list-header>
+          <ion-label>Classification</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let service of (services | async)">
+          <ion-label>{{service.name}}</ion-label>
+          <ion-radio slot="start" color="primary" [value]="service.slug" [checked]="service.slug == selectedClassification"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+  </ng-container>
+  <ng-container *ngIf="selectedSegment == 'notifications'">
+    <ion-list>
+      <ion-item *ngFor="let notification of notifications">
+        <ion-label>{{notification.label}}</ion-label>
+        <ion-checkbox slot="end" [title]="notification.label" [value]="notification.val" [(ngModel)]="notification.isChecked" (ionChange)="notificationSelect($event, userInfo?.uid)"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+
+  </ng-container>
+</ion-content>

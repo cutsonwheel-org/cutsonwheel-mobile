@@ -1,0 +1,5 @@
+<ion-label>
+  <h2>Paid by: {{displayName }}</h2>
+  <h3>{{wallet.formattedDate | date:'fullDate' }}</h3>
+  <p>{{payment?.transactions.amount.total | currency:payment?.transactions.amount.currency:'symbol-narrow'}}</p>
+</ion-label>

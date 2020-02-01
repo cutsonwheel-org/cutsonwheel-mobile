@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>News</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let news of latestNews">
+      <ion-label>
+        <ion-thumbnail slot="start">
+          <ion-img [src]="news.featuredImage"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+            <h2>{{ news.title }}</h2>
+            <h3>{{news.published.seconds * 1000 | date }}</h3>
+            <p>{{ news.description }}</p>
+        </ion-label>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadNews($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-card *ngIf="latestNews.length === 0">
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="information-circle"></ion-icon>
+        <ion-label>No news avaiable for now!</ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

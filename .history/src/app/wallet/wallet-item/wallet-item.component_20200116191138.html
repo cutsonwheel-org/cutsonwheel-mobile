@@ -1,0 +1,8 @@
+<ion-label slot="start">
+  <h2>Paid by: {{displayName }}</h2>
+  <h3>{{wallet.formattedDate | date:'fullDate' }}</h3>
+  <p>Ref Num: {{ wallet.paymentId }}</p>
+</ion-label>
+<ion-chip slot="end">
+  <ion-label>{{payment.transactions.amount.total | currency:payment.transactions.amount.currency:'symbol-narrow'}}</ion-label>
+</ion-chip>

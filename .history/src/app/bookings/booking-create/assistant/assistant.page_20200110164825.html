@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/t/bookings/booking-create/location"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Step 2 out of 5</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Filter Assistants" animated (ionClear)="onClear($event)" (ionChange)="onFilterUpdate($event)"></ion-searchbar>
+  </ion-toolbar>
+
+  <!-- show skeleton loading -->
+  <ion-list id="skeleton" *ngIf="isLoading">
+    <ion-item>
+        <ion-thumbnail slot="start">
+            <ion-skeleton-text></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+            <h2>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </h2>
+            <h3>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            </h3>
+            <p>
+                <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+            </p>
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-thumbnail slot="start">
+            <ion-skeleton-text></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+            <h2>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </h2>
+            <h3>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            </h3>
+            <p>
+                <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+            </p>
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-thumbnail slot="start">
+            <ion-skeleton-text></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+            <h2>
+                <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+            </h2>
+            <h3>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+            </h3>
+            <p>
+                <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+            </p>
+        </ion-label>
+    </ion-item>
+</ion-list>
+
+  <ion-list *ngIf="!isLoading">
+    <ion-item lines="full" *ngFor="let user of assistants$ | async" (click)="onPickedAssistant(user?.id)" detail>
+      <ion-thumbnail slot="start">
+          <ion-img [src]="user?.photoURL"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+          <h2>{{ user.displayName }}</h2>
+          <p>{{ user.classification }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-card *ngIf="!(assistants$ | async)?.length">
+    <ion-card-content>
+      <ion-icon slot="start" name="information"></ion-icon>
+      No assistant on record for now!
+    </ion-card-content>
+  </ion-card>
+</ion-content>

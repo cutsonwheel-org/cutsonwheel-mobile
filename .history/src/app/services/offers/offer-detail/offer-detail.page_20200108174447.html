@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/services/discover"></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ isLoading ? 'Loading...' : offer.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card id="skeleton" *ngIf="isLoading">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-skeleton-text animated style="width: 80px"></ion-skeleton-text>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+    </ion-card-content>
+    <ion-item>
+      <ion-skeleton-text animated style="width: 30px" slot="start"></ion-skeleton-text>
+      <ion-label>
+        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="!isLoading">
+    <img [src]="offer?.imageUrl" />
+    <ion-card-header>
+      <ion-card-subtitle>
+        Posted by: {{assistantDetail?.firstname}}
+      </ion-card-subtitle>
+      <ion-card-title>{{offer?.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{offer?.description}}
+    </ion-card-content>
+
+    <ion-item>
+      <ion-icon name="calendar" slot="start"></ion-icon>
+      <ion-label>
+        <ng-container *ngIf="offer.availability === 'alldays'; else options">
+          All Days
+        </ng-container>
+        <ng-template #options>
+          {{ offer.availability != 'weekdays' ? 'Week end': 'Week days'}}
+        </ng-template>
+      </ion-label>
+      <ion-note slot="end">Availability</ion-note>
+    </ion-item>
+
+    <ion-item class="activated">
+      <ion-icon name="clipboard" slot="start"></ion-icon>
+      <ion-label>{{offer.category}}</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="clock" slot="start"></ion-icon>
+      <ion-label>{{offer.duration}}</ion-label>
+      <ion-note slot="end">Duration</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="cash" slot="start"></ion-icon>
+      <ion-label>{{offer.charges | currency }}</ion-label>
+      <ion-note slot="end">Service Cost</ion-note>
+    </ion-item>
+  </ion-card>
+
+  <div class="ion-padding" *ngIf="isBookable">
+    <ion-button expand="block" type="button" class="ion-no-margin" (click)="onBookOffer(offer?.id)">Book now</ion-button>
+  </div>
+</ion-content>

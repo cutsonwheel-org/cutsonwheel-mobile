@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+        <ion-title>{{ !isLogin ? 'Signup' : 'Login'}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <ion-grid>
+            <ion-row>
+                <ion-col size-sm="6" offset-sm="3">
+                  <h3>Welcome to cutsonwheel! <br/>
+                    Offer or Book Services to get started.</h3>
+                    <ion-list>
+                        <ion-item>
+                            <ion-label position="floating">E-mail</ion-label>
+                            <ion-input type="email" ngModel name="email" required email #email="ngModel"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="!email.valid && email.touched" lines="none">
+                            <p>Should be a valid email!</p>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating">Password</ion-label>
+                            <ion-input type="password" ngModel name="password" required minlength="8" #password="ngModel"></ion-input>
+                        </ion-item>
+                        <ion-item *ngIf="!password.valid && password.touched" lines="none">
+                            <p>Should at least 8 characters long!</p>
+                        </ion-item>
+                    </ion-list>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size-md="6" offset-md="3">
+                  <ion-button type="submit" color="primary" expand="block" [disabled]="!f.valid">{{ !isLogin ? 'Signup' : 'Login'}}</ion-button>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size-md="6" offset-md="3">
+                <p role="button">Forgot my passwrod</p>
+              </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>
+<ion-footer class="ion-text-center">
+  <p role="button" (click)="onSwitchMode()">{{ isLogin ? 'No account yet? Signup' : 'Already hav an account! Login'}}</p>
+</ion-footer>

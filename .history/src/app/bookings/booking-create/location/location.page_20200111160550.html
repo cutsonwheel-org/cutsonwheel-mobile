@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/t/services/discover"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Step 1 out of 5</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>{{location?.address}}</ion-label>
+    <ion-checkbox slot="end" value="confirmed" (ionChange)="isConfirmed($event)"></ion-checkbox>
+  </ion-item>
+  <div class="map" #map></div>
+</ion-content>

@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Discover Services</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Searchbar in a Toolbar -->
+    <ion-toolbar>
+      <ion-searchbar placeholder="Filter services" (ionClear)="onClear($event)" (ionChange)="onFilterUpdate($event)"></ion-searchbar>
+    </ion-toolbar>
+
+
+
+    <ion-virtual-scroll [items]="(offers$ | async)" approxItemHeight="70px">
+      <ion-item [routerLink]="['/t/', 'services', 'discover', 'offer-detail', offer.id]" detail *virtualItem="let offer">
+          <ion-thumbnail slot="start">
+              <ion-img [src]="offer.imageUrl"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+              <h2>{{ offer.title }}</h2>
+              <p>{{ offer.description }}</p>
+          </ion-label>
+      </ion-item>
+    </ion-virtual-scroll>
+
+    <ion-card *ngIf="!(offers$ | async)?.length">
+      <ion-card-content>
+        <ion-icon slot="start" name="information"></ion-icon>
+        There are no bookable services right now, please come back later!
+      </ion-card-content>
+    </ion-card>
+</ion-content>
+
